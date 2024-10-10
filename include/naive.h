@@ -4,8 +4,8 @@
 #ifndef INCLUDE_NAIVE
 #define INCLUDE_NAIVE
 
-#include <stdio.h>
 #include <stdint.h>
+#include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
 
@@ -13,4 +13,4 @@ void matmul_naive(const float *a, const float *b, float *c, size_t n);
 
 #include "../src/naive.c"
 
-#endif // INCLUDE_NAIVE
+#endif  // INCLUDE_NAIVE
