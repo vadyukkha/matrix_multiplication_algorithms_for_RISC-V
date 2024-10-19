@@ -1,0 +1,1 @@
+g++ -Iinclude -I../include/googletest/googletest/include/ gtest-all.o -pthread -o my_tests ../tests/runtest.cpp
