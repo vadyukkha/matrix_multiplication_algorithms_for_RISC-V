@@ -1,5 +1,5 @@
 #include "../include/naive.h"
-#include "../include/googletest/googletest/include/gtest/gtest.h"
+#include <gtest/gtest.h>
 
 TEST(matmul_naive_test, equal_matrix) {
     size_t n = 2;
