@@ -1,5 +1,5 @@
 #include "../include/naive.h"
-#include "../include/googletest/googletest/include/gtest/gtest.h"
+#include <gtest/gtest.h>
 
 TEST(matmul_naive_test, equal_matrix) {
     size_t n = 2;
@@ -24,9 +24,4 @@ TEST(matmul_naive_test, equal_matrix) {
         }
     }
     EXPECT_EQ(all_correct, true);
-}
-
-int main(int argc, char **argv) {
-    ::testing::InitGoogleTest(&argc, argv);
-    return RUN_ALL_TESTS();
 }

@@ -1,5 +1,4 @@
 // Copyright 2024 by Contributors
-#pragma once
 
 #ifndef INCLUDE_NAIVE
 #define INCLUDE_NAIVE
@@ -9,8 +8,10 @@
 #include <stdlib.h>
 #include <time.h>
 
-void matmul_naive(const float *a, const float *b, float *c, size_t n);
-
-#include "../src/naive.c"
+#ifdef __cplusplus
+extern "C" {
+    void matmul_naive(const float *a, const float *b, float *c, size_t n);
+}
+#endif
 
 #endif  // INCLUDE_NAIVE
