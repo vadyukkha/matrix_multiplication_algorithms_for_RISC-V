@@ -1,5 +1,4 @@
 // Copyright 2024 by Contributors
-#pragma once
 
 #ifndef INCLUDE_NAIVE
 #define INCLUDE_NAIVE

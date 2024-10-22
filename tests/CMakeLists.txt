@@ -7,10 +7,10 @@ FetchContent_Declare(
 set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 FetchContent_MakeAvailable(googletest)
 
-# Creating  executable of tests and linking with gtest and our lab for matrix multiplication
+# Creating  executable of tests and linking with gtest and our lab for matrix multiplication + api
 file(GLOB TESTS_FILES "*.cpp")
 add_executable(tests ${TESTS_FILES})
-target_link_libraries(tests multiplication_lib GTest::gtest_main)
+target_link_libraries(tests api multiplication_lib GTest::gtest_main)
 
 include(GoogleTest)
 gtest_discover_tests(tests)

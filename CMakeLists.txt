@@ -3,12 +3,25 @@ project(matrix_multiplication_risc_v)
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-# include directories adding
-include_directories(${PROJECT_SOURCE_DIR}/include ${PROJECT_SOURCE_DIR}/API)
+# CMP0135 policy should be new
+if(POLICY CMP0135)
+    cmake_policy(SET CMP0135 NEW)
+endif()
 
-# our library for matrix multiplication adding (API + C algorithms realization)
-file(GLOB SRC_FILES ${PROJECT_SOURCE_DIR}/src/*.c ${PROJECT_SOURCE_DIR}/API/*.cpp)
+# C lib and api lib source files
+file(GLOB SRC_FILES ${PROJECT_SOURCE_DIR}/src/*.c)
+file(GLOB API_FILES ${PROJECT_SOURCE_DIR}/api/*.cpp)
+
+# C lib adding
 add_library(multiplication_lib ${SRC_FILES})
+target_include_directories(multiplication_lib PUBLIC ${PROJECT_SOURCE_DIR}/include)
+
+# api lib adding
+add_library(api ${API_FILES})
+target_include_directories(api PUBLIC ${PROJECT_SOURCE_DIR}/api)
+
+# C lib and api linking
+target_link_libraries(api PRIVATE multiplication_lib)
 
 # flag to enable/disable tests compilation
 option(BUILD_TESTS "Build tests" ON)
