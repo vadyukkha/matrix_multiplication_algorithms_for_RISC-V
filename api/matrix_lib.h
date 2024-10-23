@@ -19,16 +19,19 @@ namespace MatrixLib {
         //Defualt constructor
         Matrix();
 
-        // Destructor
-        ~Matrix();
-
         // Copy constructor
         Matrix(const Matrix& other);
 
         // Move constructor
         Matrix(Matrix&& other);
 
-        // Set size
+        // Getting size rows
+        size_t getRows() const;
+
+        // Getting size cols
+        size_t getCols() const;
+
+        // Setting size
         void setSize(const size_t rows, const size_t cols);
 
         // Setting element
@@ -41,13 +44,16 @@ namespace MatrixLib {
         Matrix multiply(const Matrix& other) const;
 
         // Equality two matrix
-        bool equal(const Matrix& other) const;
+        bool isEqual(const Matrix& other) const;
 
         // Print matrix
         void print() const;
 
         // Copy matrix
         Matrix copy() const;
+
+        // Destructor
+        ~Matrix();
 
     private:
         size_t rows_;

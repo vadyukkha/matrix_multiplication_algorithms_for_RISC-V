@@ -1,4 +1,4 @@
-#include "MatrixLib.h"
+#include "matrix_lib.h"
 
 namespace MatrixLib {
 
@@ -6,7 +6,9 @@ namespace MatrixLib {
         data_ = new int[rows * cols];
     }
 
-    Matrix::Matrix() : rows_(0), cols_(0) {}
+    Matrix::Matrix() : rows_(0), cols_(0) {
+        data_ = nullptr;
+    }
 
     Matrix::Matrix(const Matrix& other) : rows_(other.rows_), cols_(other.cols_) {
         data_ = new int[rows_ * cols_];
@@ -23,6 +25,14 @@ namespace MatrixLib {
 
     Matrix::~Matrix() {
         delete[] data_;
+    }
+
+    size_t Matrix::getRows() const {
+        return rows_;
+    }
+
+    size_t Matrix::getCols() const {
+        return cols_;
     }
 
     void Matrix::setSize(const size_t rows, const size_t cols) {
@@ -50,7 +60,7 @@ namespace MatrixLib {
         }
 
         Matrix result(rows_, other.cols_);
-        __matmul__(this->data_, other.data_, result.data_, rows_, other.cols_);
+        matmul_naive(this->data_, other.data_, result.data_, rows_, other.cols_);
         return result;
     }
 
@@ -63,7 +73,7 @@ namespace MatrixLib {
         }
     }
 
-    bool Matrix::equal(const Matrix& other) const {
+    bool Matrix::isEqual(const Matrix& other) const {
         if (rows_ != other.rows_ || cols_ != other.cols_) {
             return false;
         }

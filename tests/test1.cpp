@@ -1,17 +1,17 @@
-#include "../include/naive.h"
+#include "matrix_operation.h"
 #include <gtest/gtest.h>
 
 TEST(matmul_naive_test, equal_matrix) {
     size_t n = 2;
-    float* a = (float*)malloc(n * n * sizeof(float));
-    float* b = (float*)malloc(n * n * sizeof(float));
-    float* c = (float*)calloc(n * n, sizeof(float));
+    int* a = (int*)malloc(n * n * sizeof(int));
+    int* b = (int*)malloc(n * n * sizeof(int));
+    int* c = (int*)calloc(n * n, sizeof(int));
     for (int i = 1; i <= n*n; i++) {
         a[i-1] = i;
         b[i-1] = i;
     }
-    matmul_naive(a, b, c, n);
-    float* correct_answer = (float*)calloc(n * n, sizeof(float));
+    matmul_naive(a, b, c, n, n);
+    int* correct_answer = (int*)calloc(n * n, sizeof(int));
     correct_answer[0] = 7;
     correct_answer[1] = 10;
     correct_answer[2] = 15;
