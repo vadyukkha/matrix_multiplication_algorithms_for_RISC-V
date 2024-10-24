@@ -1,4 +1,4 @@
-#include "../include/matrix_operation.h"
+#include "matrix_operation.h"
 
 // Realization of naive matrix multiplication function
 void matmul_naive(const int *a, const int *b, int *c, size_t row, size_t col) {

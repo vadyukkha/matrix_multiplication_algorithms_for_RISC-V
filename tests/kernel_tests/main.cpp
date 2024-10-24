@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
-#include "matrix_lib.h"
 
+#include "matrix_lib.h"
 
 int main(int argc, char **argv) {
     MatrixLib::Matrix A;
