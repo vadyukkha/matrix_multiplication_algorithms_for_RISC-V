@@ -1,18 +1,17 @@
-// #include "../api/matrix_lib.h"
-// #include <cassert>
+#include <gtest/gtest.h>
 
-// int main() {
-//     MatrixLib::Matrix mat1(2, 2);
+#include "matrix_lib.h"
 
-//     for (int i = 0; i < mat1.getRows(); i++) {
-//         for (int j = 0; j < mat1.getCols(); j++) {
-//             mat1.setElement(i, j, i + j + 1);
-//         }
-//     }
+TEST(copy_and_equal, test_copy_and_equal_func) {
+    MatrixLib::Matrix mat1(2, 2);
 
-//     MatrixLib::Matrix mat2 = mat1.copy();
+    for (int i = 0; i < mat1.getRows(); i++) {
+        for (int j = 0; j < mat1.getCols(); j++) {
+            mat1.setElement(i, j, i + j + 1);
+        }
+    }
 
-//     assert(mat1.isEqual(mat2));
+    MatrixLib::Matrix mat2 = mat1.copy();
 
-//     return 0;
-// }
+    EXPECT_EQ(mat1.isEqual(mat2), true);
+}

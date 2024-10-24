@@ -1,7 +1,8 @@
-#include "matrix_lib.h"
 #include <gtest/gtest.h>
 
-TEST(set_and_get, test_set_and_get_func){
+#include "matrix_lib.h"
+
+TEST(set_and_get, test_set_and_get_func) {
     MatrixLib::Matrix mat1(2, 2);
 
     for (int i = 0; i < mat1.getRows(); i++) {

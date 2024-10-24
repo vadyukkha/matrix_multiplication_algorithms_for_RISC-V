@@ -1,5 +1,6 @@
-#include "../api/matrix_lib.h"
 #include <gtest/gtest.h>
+
+#include "matrix_lib.h"
 
 TEST(product, test_product_func) {
     MatrixLib::Matrix mat1(2, 2);
