@@ -1,7 +1,7 @@
 #include "../api/matrix_lib.h"
-#include <cassert>
+#include <gtest/gtest.h>
 
-int main() {
+TEST(product, test_product_func) {
     MatrixLib::Matrix mat1(2, 2);
     MatrixLib::Matrix mat2(2, 2);
 
@@ -19,10 +19,8 @@ int main() {
 
     MatrixLib::Matrix product = mat1.multiply(mat2);
 
-    assert(product.getElement(0, 0) == 1 * 5 + 2 * 6);
-    assert(product.getElement(0, 1) == 1 * 6 + 2 * 7);
-    assert(product.getElement(1, 0) == 2 * 5 + 3 * 6);
-    assert(product.getElement(1, 1) == 2 * 6 + 3 * 7);
-
-    return 0;
+    EXPECT_EQ(product.getElement(0, 0), 1 * 5 + 2 * 6);
+    EXPECT_EQ(product.getElement(0, 1), 1 * 6 + 2 * 7);
+    EXPECT_EQ(product.getElement(1, 0), 2 * 5 + 3 * 6);
+    EXPECT_EQ(product.getElement(1, 1), 2 * 6 + 3 * 7);
 }

@@ -1,7 +1,7 @@
-#include "../api/matrix_lib.h"
-#include <cassert>
+#include "matrix_lib.h"
+#include <gtest/gtest.h>
 
-int main() {
+TEST(set_and_get, test_set_and_get_func){
     MatrixLib::Matrix mat1(2, 2);
 
     for (int i = 0; i < mat1.getRows(); i++) {
@@ -10,10 +10,8 @@ int main() {
         }
     }
 
-    assert(mat1.getElement(0, 0) == 1);
-    assert(mat1.getElement(0, 1) == 2);
-    assert(mat1.getElement(1, 0) == 2);
-    assert(mat1.getElement(1, 1) == 3);
-
-    return 0;
+    EXPECT_EQ(mat1.getElement(0, 0), 1);
+    EXPECT_EQ(mat1.getElement(0, 1), 2);
+    EXPECT_EQ(mat1.getElement(1, 0), 2);
+    EXPECT_EQ(mat1.getElement(1, 1), 3);
 }
