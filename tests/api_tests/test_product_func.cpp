@@ -24,4 +24,14 @@ TEST(product, test_product_func) {
     EXPECT_EQ(product.getElement(0, 1), 1 * 6 + 2 * 7);
     EXPECT_EQ(product.getElement(1, 0), 2 * 5 + 3 * 6);
     EXPECT_EQ(product.getElement(1, 1), 2 * 6 + 3 * 7);
+
+    MatrixLib::Matrix mat3;
+    MatrixLib::Matrix mat4;
+
+    try {
+        MatrixLib::Matrix Error_matrix = mat3.multiply(mat4);
+        EXPECT_EQ(false, true);
+    } catch (const std::invalid_argument& e) {
+        EXPECT_EQ(std::string(e.what()), "No initialized matrix");
+    }
 }

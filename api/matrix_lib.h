@@ -14,22 +14,22 @@ namespace MatrixLib {
 class Matrix {
    public:
     // Constructor
-    Matrix(const size_t rows, const size_t cols);
+    explicit Matrix(const size_t rows, const size_t cols) noexcept;
 
     // Defualt constructor
-    Matrix();
+    explicit Matrix() noexcept;
 
     // Copy constructor
     Matrix(const Matrix& other);
 
     // Move constructor
-    Matrix(Matrix&& other);
+    Matrix(Matrix&& other) noexcept;
 
     // Getting size rows
-    size_t getRows() const;
+    size_t getRows() const noexcept;
 
     // Getting size cols
-    size_t getCols() const;
+    size_t getCols() const noexcept;
 
     // Setting size
     void setSize(const size_t rows, const size_t cols);
@@ -44,16 +44,16 @@ class Matrix {
     Matrix multiply(const Matrix& other) const;
 
     // Equality two matrix
-    bool isEqual(const Matrix& other) const;
+    bool isEqual(const Matrix& other) const noexcept;
 
     // Print matrix
-    void print() const;
+    void print() const noexcept;
 
     // Copy matrix
     Matrix copy() const;
 
     // Destructor
-    ~Matrix();
+    ~Matrix() noexcept;
 
    private:
     size_t rows_;
