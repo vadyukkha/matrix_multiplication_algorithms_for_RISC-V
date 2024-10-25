@@ -30,7 +30,7 @@ TEST(product, test_product_func) {
 
     try {
         MatrixLib::Matrix Error_matrix = mat3.multiply(mat4);
-        EXPECT_EQ(false, true);
+        FAIL() << "Exception was not thrown as expected!";
     } catch (const std::invalid_argument& e) {
         EXPECT_EQ(std::string(e.what()), "No initialized matrix");
     }

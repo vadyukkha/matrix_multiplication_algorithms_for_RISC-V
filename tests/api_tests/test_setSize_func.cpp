@@ -14,7 +14,7 @@ TEST(setSize, test_setSize_func) {
     A.setSize(2, 2);
     try {
         A.getElement(4, 4);
-        EXPECT_EQ(false, true);
+        FAIL() << "Exception was not thrown as expected!";
     } catch (const std::out_of_range& e) {
         EXPECT_EQ(std::string(e.what()), "Index out of range");
     }
