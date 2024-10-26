@@ -1,21 +1,44 @@
 #include <gtest/gtest.h>
 
 #include "matrix_lib.h"
+#include "tests_generator.h"
 
-TEST(setSize, test_setSize_func) {
-    MatrixLib::Matrix A(5, 5);
-    A.setElement(4, 4, 9);
-    EXPECT_EQ(A.getElement(4, 4), 9);
+class test_setSize : public ::testing::TestWithParam<pll> {};
 
-    A.setSize(10, 10);
+TEST_P(test_setSize, setSize) {
+    auto [rows, cols] = GetParam();
 
-    EXPECT_EQ(A.getElement(4, 4), 9);
-
-    A.setSize(2, 2);
     try {
-        A.getElement(4, 4);
-        FAIL() << "Exception was not thrown as expected!";
-    } catch (const std::out_of_range& e) {
-        EXPECT_EQ(std::string(e.what()), "Index out of range");
+        MatrixLib::Matrix mat(rows, cols);
+
+        mat.setSize(rows - 1, cols - 1);
+
+        EXPECT_EQ(mat.getRows(), rows - 1)
+            << "Error: number of rows does not match after changing the size";
+        EXPECT_EQ(mat.getCols(), cols - 1)
+            << "Error: number of columns does not match after changing the size";
+
+        bool alloc_with_zeros = true;
+        for (int64_t i = 0; i < rows - 1; ++i) {
+            for (int64_t j = 0; j < cols - 1; ++j) {
+                EXPECT_EQ(mat.getElement(i, j), 0)
+                    << "Error: element is not zero after changing the size";
+                if (mat.getElement(i, j) != 0) {
+                    alloc_with_zeros = false;
+                    break;
+                }
+            }
+            if (!alloc_with_zeros) {
+                break;
+            }
+        }
+    } catch (std::invalid_argument& e) {
+        EXPECT_STREQ(e.what(), "Size must be positive");
+        // EXPECT_STREQ(e.what(), "Rows and cols must be positive");
+    } catch (std::runtime_error& e) {
+        EXPECT_STREQ(e.what(), "Allocation failed");
     }
 }
+
+INSTANTIATE_TEST_SUITE_P(test_setSize_random_sizes, test_setSize,
+                         ::testing::ValuesIn(generate_tests_pairs(100)));

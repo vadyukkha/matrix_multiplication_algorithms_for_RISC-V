@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.14)
 project(matrix_multiplication_risc_v)
-set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # CMP0135 policy should be new

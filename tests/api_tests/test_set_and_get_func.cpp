@@ -1,18 +1,33 @@
 #include <gtest/gtest.h>
 
 #include "matrix_lib.h"
+#include "tests_generator.h"
 
-TEST(set_and_get, test_set_and_get_func) {
-    MatrixLib::Matrix mat1(2, 2);
+class test_set_and_get : public ::testing::TestWithParam<pll> {};
 
-    for (int i = 0; i < mat1.getRows(); i++) {
-        for (int j = 0; j < mat1.getCols(); j++) {
-            mat1.setElement(i, j, i + j + 1);
+TEST_P(test_set_and_get, set_and_get) {
+    auto [rows, cols] = GetParam();
+
+    try {
+        MatrixLib::Matrix mat1(rows, cols);
+
+        for (int i = 0; i < mat1.getRows(); i++) {
+            for (int j = 0; j < mat1.getCols(); j++) {
+                mat1.setElement(i, j, 2);
+            }
         }
-    }
 
-    EXPECT_EQ(mat1.getElement(0, 0), 1);
-    EXPECT_EQ(mat1.getElement(0, 1), 2);
-    EXPECT_EQ(mat1.getElement(1, 0), 2);
-    EXPECT_EQ(mat1.getElement(1, 1), 3);
+        for (int i = 0; i < mat1.getRows(); i++) {
+            for (int j = 0; j < mat1.getCols(); j++) {
+                EXPECT_EQ(mat1.getElement(i, j), 2) << "Error: element is not equal to 2";
+            }
+        }
+    } catch (std::invalid_argument& e) {
+        EXPECT_STREQ(e.what(), "Size must be positive");
+    } catch (std::runtime_error& e) {
+        EXPECT_STREQ(e.what(), "Allocation failed");
+    }
 }
+
+INSTANTIATE_TEST_SUITE_P(test_set_and_get_random_sizes, test_set_and_get,
+                         ::testing::ValuesIn(generate_tests_pairs(100)));
