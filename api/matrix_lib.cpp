@@ -5,7 +5,12 @@
 
 namespace MatrixLib {
 
-Matrix::Matrix(const size_t rows, const size_t cols) noexcept : rows_(rows), cols_(cols) {
+Matrix::Matrix(const int rows, const int cols) {
+    if (rows < 0 || cols < 0) {
+        throw std::invalid_argument("Size must be positive");
+    }
+    rows_ = rows;
+    cols_ = cols;
     data_ = new int[rows * cols]();
 }
 
@@ -29,7 +34,10 @@ size_t Matrix::getRows() const noexcept { return rows_; }
 
 size_t Matrix::getCols() const noexcept { return cols_; }
 
-void Matrix::setSize(const size_t rows, const size_t cols) {
+void Matrix::setSize(const int rows, const int cols) {
+    if (rows < 0 || cols < 0) {
+        throw std::invalid_argument("Rows and cols must be positive");
+    }
     int* old_data = data_;
     data_ = new int[rows * cols]();
     for (size_t i = 0; i < rows && i < rows_; ++i) {
@@ -42,14 +50,14 @@ void Matrix::setSize(const size_t rows, const size_t cols) {
     delete[] old_data;
 }
 
-void Matrix::setElement(size_t row, size_t col, int value) {
+void Matrix::setElement(int row, int col, int value) {
     if (row >= rows_ || col >= cols_ || row < 0 || col < 0) {
         throw std::out_of_range("Index out of range");
     }
     data_[row * cols_ + col] = value;
 }
 
-int Matrix::getElement(size_t row, size_t col) const {
+int Matrix::getElement(int row, int col) const {
     if (row >= rows_ || col >= cols_ || row < 0 || col < 0) {
         throw std::out_of_range("Index out of range");
     }
@@ -99,6 +107,63 @@ Matrix Matrix::copy() const {
     Matrix result(rows_, cols_);
     std::copy(data_, data_ + rows_ * cols_, result.data_);
     return result;
+}
+
+Matrix& Matrix::operator=(const Matrix& other) {
+    if (this == &other) {
+        return *this;
+    }
+
+    if (data_ != nullptr) {
+        delete[] data_;
+    }
+
+    rows_ = other.rows_;
+    cols_ = other.cols_;
+    data_ = new int[rows_ * cols_];
+    std::copy(other.data_, other.data_ + rows_ * cols_, data_);
+    return *this;
+}
+
+Matrix& Matrix::operator=(Matrix&& other) noexcept {
+    if (this == &other) {
+        return *this;
+    }
+
+    if (data_ != nullptr) {
+        delete[] data_;
+    }
+
+    rows_ = other.rows_;
+    cols_ = other.cols_;
+    data_ = std::move(other.data_);
+    other.data_ = nullptr;
+    other.rows_ = 0;
+    other.cols_ = 0;
+    return *this;
+}
+
+bool Matrix::operator==(const Matrix& other) const noexcept { return isEqual(other); }
+
+bool Matrix::operator!=(const Matrix& other) const noexcept { return !isEqual(other); }
+
+Matrix Matrix::operator*(const Matrix& other) const { return multiply(other); }
+
+int& Matrix::operator()(int row, int col) {
+    if (row >= rows_ || col >= cols_ || row < 0 || col < 0) {
+        throw std::out_of_range("Index out of range");
+    }
+    return data_[row * cols_ + col];
+}
+
+std::ostream& operator<<(std::ostream& os, const Matrix& matrix) {
+    for (size_t i = 0; i < matrix.rows_; ++i) {
+        for (size_t j = 0; j < matrix.cols_; ++j) {
+            os << matrix.data_[i * matrix.cols_ + j] << " ";
+        }
+        os << std::endl;
+    }
+    return os;
 }
 
 }  // namespace MatrixLib
