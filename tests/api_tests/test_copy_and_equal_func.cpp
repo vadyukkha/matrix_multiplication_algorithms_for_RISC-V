@@ -3,7 +3,7 @@
 #include "matrix_lib.h"
 #include "tests_generator.h"
 
-class test_copy_and_equal : public ::testing::TestWithParam<pll> {};
+class test_copy_and_equal : public ::testing::TestWithParam<matrix_size_t> {};
 
 TEST_P(test_copy_and_equal, copy_and_equal) {
     auto [rows, cols] = GetParam();
@@ -28,4 +28,4 @@ TEST_P(test_copy_and_equal, copy_and_equal) {
 }
 
 INSTANTIATE_TEST_SUITE_P(test_copy_and_equal_random_sizes, test_copy_and_equal,
-                         ::testing::ValuesIn(generate_tests_pairs(100)));
+                         ::testing::ValuesIn(generate_tests_parametrs(100)));

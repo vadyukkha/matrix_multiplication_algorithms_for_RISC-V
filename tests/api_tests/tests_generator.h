@@ -5,9 +5,8 @@
 #include <random>
 #include <vector>
 
-typedef std::pair<int64_t, int64_t> pll;
-typedef std::vector<pll> vpll;
+typedef std::pair<int64_t, int64_t> matrix_size_t;
 
-vpll generate_tests_pairs(size_t count = 50);
+std::vector<matrix_size_t> generate_tests_parametrs(size_t count = 50);
 
 #endif  // TESTS_API_TESTS_TESTS_GENERATOR

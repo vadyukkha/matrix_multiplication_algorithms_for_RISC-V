@@ -3,7 +3,7 @@
 #include "matrix_lib.h"
 #include "tests_generator.h"
 
-class test_setSize : public ::testing::TestWithParam<pll> {};
+class test_setSize : public ::testing::TestWithParam<matrix_size_t> {};
 
 TEST_P(test_setSize, setSize) {
     auto [rows, cols] = GetParam();
@@ -41,4 +41,4 @@ TEST_P(test_setSize, setSize) {
 }
 
 INSTANTIATE_TEST_SUITE_P(test_setSize_random_sizes, test_setSize,
-                         ::testing::ValuesIn(generate_tests_pairs(100)));
+                         ::testing::ValuesIn(generate_tests_parametrs(100)));
