@@ -14,7 +14,7 @@ namespace MatrixLib {
 class Matrix {
    public:
     // Constructor
-    explicit Matrix(const int64_t rows, const int64_t cols);
+    explicit Matrix(const size_t rows, const size_t cols);
 
     // Defualt constructor
     explicit Matrix() noexcept;
@@ -26,19 +26,19 @@ class Matrix {
     Matrix(Matrix&& other) noexcept;
 
     // Getting size rows
-    size_t getRows() const noexcept;
+    size_t getRowsSize() const noexcept;
 
     // Getting size cols
-    size_t getCols() const noexcept;
+    size_t getColsSize() const noexcept;
 
     // Setting size
-    void setSize(const int64_t rows, const int64_t cols);
+    void setSize(const size_t rows, const size_t cols);
 
     // Setting element
-    void setElement(int64_t row, int64_t col, int value);
+    void setElement(size_t row, size_t col, int value);
 
     // Getting element
-    int getElement(int64_t row, int64_t col) const;
+    int getElement(size_t row, size_t col) const;
 
     // Multyply two matrix
     Matrix multiply(const Matrix& other) const;
@@ -71,7 +71,7 @@ class Matrix {
     Matrix operator*(const Matrix& other) const;
 
     // Overload operator ()
-    int& operator()(int64_t row, int64_t col);
+    int& operator()(size_t row, size_t col);
 
     // Overload operator <<
     friend std::ostream& operator<<(std::ostream& os, const Matrix& matrix);

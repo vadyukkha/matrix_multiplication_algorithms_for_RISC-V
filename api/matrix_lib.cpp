@@ -5,8 +5,8 @@
 
 namespace MatrixLib {
 
-Matrix::Matrix(const int64_t rows, const int64_t cols) {
-    if (rows < 0 || cols < 0) {
+Matrix::Matrix(const size_t rows, const size_t cols) {
+    if (rows == 0 || cols == 0) {
         throw std::invalid_argument("Size must be positive");
     }
     rows_ = rows;
@@ -40,12 +40,12 @@ Matrix::Matrix(Matrix&& other) noexcept
 
 Matrix::~Matrix() noexcept { delete[] data_; }
 
-size_t Matrix::getRows() const noexcept { return rows_; }
+size_t Matrix::getRowsSize() const noexcept { return rows_; }
 
-size_t Matrix::getCols() const noexcept { return cols_; }
+size_t Matrix::getColsSize() const noexcept { return cols_; }
 
-void Matrix::setSize(const int64_t rows, const int64_t cols) {
-    if (rows < 0 || cols < 0) {
+void Matrix::setSize(const size_t rows, const size_t cols) {
+    if (rows == 0 || cols == 0) {
         throw std::invalid_argument("Rows and cols must be positive");
     }
     int* old_data = data_;
@@ -66,15 +66,15 @@ void Matrix::setSize(const int64_t rows, const int64_t cols) {
     delete[] old_data;
 }
 
-void Matrix::setElement(int64_t row, int64_t col, int value) {
-    if (row >= rows_ || col >= cols_ || row < 0 || col < 0) {
+void Matrix::setElement(size_t row, size_t col, int value) {
+    if (row >= rows_ || col >= cols_) {
         throw std::out_of_range("Index out of range");
     }
     data_[row * cols_ + col] = value;
 }
 
-int Matrix::getElement(int64_t row, int64_t col) const {
-    if (row >= rows_ || col >= cols_ || row < 0 || col < 0) {
+int Matrix::getElement(size_t row, size_t col) const {
+    if (row >= rows_ || col >= cols_) {
         throw std::out_of_range("Index out of range");
     }
     return data_[row * cols_ + col];
@@ -170,8 +170,8 @@ bool Matrix::operator!=(const Matrix& other) const noexcept { return !isEqual(ot
 
 Matrix Matrix::operator*(const Matrix& other) const { return multiply(other); }
 
-int& Matrix::operator()(int64_t row, int64_t col) {
-    if (row >= rows_ || col >= cols_ || row < 0 || col < 0) {
+int& Matrix::operator()(size_t row, size_t col) {
+    if (row >= rows_ || col >= cols_) {
         throw std::out_of_range("Index out of range");
     }
     return data_[row * cols_ + col];
