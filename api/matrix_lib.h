@@ -4,11 +4,6 @@
 #include <iostream>
 #include <stdexcept>
 
-// Include C header file
-extern "C" {
-#include "matrix_operation.h"
-}
-
 namespace MatrixLib {
 
 class Matrix {

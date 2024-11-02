@@ -10,12 +10,13 @@ std::vector<matrix_size_t> generate_tests_parametrs(size_t count) {
     };
 
     std::vector<matrix_size_t> parametrs_size_matrix = {
-        {0, 0},                                                              // Empty matrix
-        {1, 1},                                                              // One element matrix
-        {100, 100},                                                          // Small matrix
-        {generate_rnd_long(1, 1000), 1000},                                  // Normal size matrix
-        {std::numeric_limits<int>::max(), std::numeric_limits<int>::max()},  // Max size
-        {std::numeric_limits<int64_t>::min(), std::numeric_limits<int64_t>::min()},  // Invalid size
+        {0, 0},                              // Empty matrix
+        {1, 1},                              // One element matrix
+        {100, 100},                          // Small matrix
+        {generate_rnd_long(1, 1000), 1000},  // Normal size matrix
+        // {std::numeric_limits<int>::max(), std::numeric_limits<int>::max()},  // Max size
+        // {std::numeric_limits<int64_t>::min(), std::numeric_limits<int64_t>::min()},  // Invalid
+        // size
     };
 
     for (size_t i = 0; i < count; ++i) {

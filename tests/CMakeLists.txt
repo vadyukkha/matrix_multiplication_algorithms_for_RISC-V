@@ -10,7 +10,7 @@ FetchContent_MakeAvailable(googletest)
 # Creating  executable of api_tests and linking with gtest and our lab for matrix multiplication + api
 file(GLOB API_TESTS_FILES "api_tests/*.cpp")
 add_executable(api_tests ${API_TESTS_FILES})
-target_link_libraries(api_tests api multiplication_lib GTest::gtest_main)
+target_link_libraries(api_tests api GTest::gtest_main)
 
 # Creating  executable of kernel_tests and linking with gtest and our lab for matrix multiplication + api
 file(GLOB KERNEL_TESTS_FILES "kernel_tests/*.cpp")

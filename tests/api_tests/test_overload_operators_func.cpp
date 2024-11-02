@@ -28,10 +28,10 @@ TEST(overload_operators, move_operator) {
     MatrixLib::Matrix matrix2;
     matrix2 = std::move(matrix1);
 
-    EXPECT_EQ(0, matrix1.getRows());
-    EXPECT_EQ(0, matrix1.getCols());
-    EXPECT_EQ(2, matrix2.getRows());
-    EXPECT_EQ(2, matrix2.getCols());
+    EXPECT_EQ(0, matrix1.getRowsSize());
+    EXPECT_EQ(0, matrix1.getColsSize());
+    EXPECT_EQ(2, matrix2.getRowsSize());
+    EXPECT_EQ(2, matrix2.getColsSize());
     EXPECT_EQ(1, matrix2.getElement(0, 0));
     EXPECT_EQ(2, matrix2.getElement(0, 1));
     EXPECT_EQ(3, matrix2.getElement(1, 0));

@@ -11,14 +11,14 @@ TEST_P(test_set_and_get, set_and_get) {
     try {
         MatrixLib::Matrix mat1(rows, cols);
 
-        for (int i = 0; i < mat1.getRows(); i++) {
-            for (int j = 0; j < mat1.getCols(); j++) {
+        for (int i = 0; i < mat1.getRowsSize(); i++) {
+            for (int j = 0; j < mat1.getColsSize(); j++) {
                 mat1.setElement(i, j, 2);
             }
         }
 
-        for (int i = 0; i < mat1.getRows(); i++) {
-            for (int j = 0; j < mat1.getCols(); j++) {
+        for (int i = 0; i < mat1.getRowsSize(); i++) {
+            for (int j = 0; j < mat1.getColsSize(); j++) {
                 EXPECT_EQ(mat1.getElement(i, j), 2) << "Error: element is not equal to 2";
             }
         }

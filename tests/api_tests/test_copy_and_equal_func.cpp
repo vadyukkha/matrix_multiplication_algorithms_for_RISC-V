@@ -11,8 +11,8 @@ TEST_P(test_copy_and_equal, copy_and_equal) {
     try {
         MatrixLib::Matrix mat1(rows, cols);
 
-        for (int i = 0; i < mat1.getRows(); i++) {
-            for (int j = 0; j < mat1.getCols(); j++) {
+        for (int i = 0; i < mat1.getRowsSize(); i++) {
+            for (int j = 0; j < mat1.getColsSize(); j++) {
                 mat1.setElement(i, j, 3);
             }
         }

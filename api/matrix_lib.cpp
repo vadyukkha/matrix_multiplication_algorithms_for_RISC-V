@@ -3,6 +3,11 @@
 #include <algorithm>
 #include <iostream>
 
+// Include C header file
+extern "C" {
+#include "matrix_operation.h"
+}
+
 namespace MatrixLib {
 
 Matrix::Matrix(const size_t rows, const size_t cols) {
