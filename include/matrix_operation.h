@@ -6,7 +6,7 @@
 #ifdef __cplusplus
 extern "C" {
 // Declaration of naive matrix multiplication function
-void matmul_naive(const int *a, const int *b, int *c, size_t row, size_t col);
+void matmul_naive(const int *a, const int *b, int *c, size_t row_a, size_t col_a, size_t col_b);
 }
 #endif
 
