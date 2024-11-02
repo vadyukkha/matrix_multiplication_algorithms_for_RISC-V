@@ -1,6 +1,10 @@
 #include "../include/matrix_operation.h"
 #include <stdio.h>
 #include <time.h>
+clock_t compare(const void *a, const void *b) {
+    return (*(clock_t*)a - *(clock_t*)b);
+}
+
 int main(){
     int n = 5;
     clock_t* results = (clock_t*)malloc(50*sizeof(clock_t));
@@ -17,7 +21,7 @@ int main(){
         clock_t end = clock();
         results[i] = end-start;
     }
-    qsort(results, 50, sizeof(clock_t));
+    qsort(results, 50, sizeof(clock_t), compare);
     printf("%d ", (results[24]+results[25])/2);
     return 0;
 }
