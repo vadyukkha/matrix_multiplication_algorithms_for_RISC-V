@@ -34,12 +34,12 @@ TEST_P(test_setSize, setSize1) {
                 break;
             }
         }
-    } catch (std::invalid_argument& e) {
+    } catch (MatrixLib::InvalidSize& e) {
         // EXPECT_STREQ(e.what(), "Size must be positive");
         EXPECT_TRUE(strcmp(e.what(), "Size must be positive") == 0 ||
                     strcmp(e.what(), "Rows and cols must be positive") == 0);
         // EXPECT_STREQ(e.what(), "Rows and cols must be positive");
-    } catch (std::runtime_error& e) {
+    } catch (MatrixLib::AllocationError& e) {
         EXPECT_STREQ(e.what(), "Allocation failed");
     }
 }

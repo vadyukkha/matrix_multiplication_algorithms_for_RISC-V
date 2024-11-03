@@ -74,6 +74,41 @@ class Matrix {
     int* data_;
 };
 
+class MatrixException : public std::exception {
+   public:
+    explicit MatrixException(const char* message) : message_(message) {}
+
+    const char* what() const noexcept override { return message_; }
+
+   private:
+    const char* message_;
+};
+
+class InvalidSize : public MatrixException {
+   public:
+    explicit InvalidSize(const char* message) : MatrixException(message) {}
+};
+
+class IncompatibleMatrixSizes : public MatrixException {
+   public:
+    explicit IncompatibleMatrixSizes(const char* message) : MatrixException(message) {}
+};
+
+class IndexOutOfRange : public MatrixException {
+   public:
+    explicit IndexOutOfRange(const char* message) : MatrixException(message) {}
+};
+
+class AllocationError : public MatrixException {
+   public:
+    explicit AllocationError(const char* message) : MatrixException(message) {}
+};
+
+class NoInitializedMatrix : public MatrixException {
+   public:
+    explicit NoInitializedMatrix(const char* message) : MatrixException(message) {}
+};
+
 }  // namespace MatrixLib
 
 #endif  // MATRIXLIB_H

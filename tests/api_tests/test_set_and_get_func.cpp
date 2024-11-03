@@ -24,11 +24,12 @@ TEST_P(test_set_and_get, set_and_get) {
                 EXPECT_EQ(mat1.getElement(i, j), 2) << "Error: element is not equal to 2";
             }
         }
-    } catch (std::invalid_argument& e) {
+    } catch (MatrixLib::InvalidSize& e) {
         EXPECT_STREQ(e.what(), "Size must be positive");
-    } catch (std::runtime_error& e) {
+    } catch (MatrixLib::AllocationError& e) {
         EXPECT_STREQ(e.what(), "Allocation failed");
     }
 }
 
-INSTANTIATE_TEST_SUITE_P(, test_set_and_get, ::testing::ValuesIn(generate_tests_parametrs(100)));
+INSTANTIATE_TEST_SUITE_P(test_set_and_get_random_sizes, test_set_and_get,
+                         ::testing::ValuesIn(generate_tests_parametrs(100)));
