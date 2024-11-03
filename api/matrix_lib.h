@@ -41,9 +41,6 @@ class Matrix {
     // Equality two matrix
     bool isEqual(const Matrix& other) const noexcept;
 
-    // Print matrix
-    void print() const noexcept;
-
     // Copy matrix
     Matrix copy() const;
 

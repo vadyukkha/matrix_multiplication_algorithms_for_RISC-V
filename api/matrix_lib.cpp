@@ -99,15 +99,6 @@ Matrix Matrix::multiply(const Matrix& other) const {
     return result;
 }
 
-void Matrix::print() const noexcept {
-    for (size_t i = 0; i < rows_; ++i) {
-        for (size_t j = 0; j < cols_; ++j) {
-            std::cout << data_[i * cols_ + j] << " ";
-        }
-        std::cout << std::endl;
-    }
-}
-
 bool Matrix::isEqual(const Matrix& other) const noexcept {
     if (rows_ != other.rows_ || cols_ != other.cols_) {
         return false;
