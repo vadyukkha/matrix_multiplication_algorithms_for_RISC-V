@@ -5,7 +5,7 @@
 
 class test_setSize : public ::testing::TestWithParam<matrix_size_t> {};
 
-TEST_P(test_setSize, setSize) {
+TEST_P(test_setSize, setSize1) {
     matrix_size_t size = GetParam();
     size_t rows = size.first;
     size_t cols = size.second;
@@ -41,6 +41,69 @@ TEST_P(test_setSize, setSize) {
         // EXPECT_STREQ(e.what(), "Rows and cols must be positive");
     } catch (std::runtime_error& e) {
         EXPECT_STREQ(e.what(), "Allocation failed");
+    }
+}
+
+TEST(test_setSize, setSize_constriction) {
+    size_t rows = 4;
+    size_t cols = 4;
+
+    MatrixLib::Matrix mat(rows, cols);
+
+    for (size_t i = 0; i < rows; ++i) {
+        for (size_t j = 0; j < cols; ++j) {
+            mat.setElement(i, j, i * cols + j + 1);
+        }
+    }
+
+    size_t new_rows = 3;
+    size_t new_cols = 3;
+
+    mat.setSize(new_rows, new_cols);
+
+    for (size_t i = 0; i < new_rows; ++i) {
+        for (size_t j = 0; j < new_cols; ++j) {
+            if (i < rows && j < cols) {
+                EXPECT_EQ(mat.getElement(i, j), i * cols + j + 1)
+                    << "Error: element is not equal after changing the size";
+            } else {
+                EXPECT_EQ(mat.getElement(i, j), 0)
+                    << "Error: element is not zero after changing the size";
+            }
+        }
+    }
+}
+
+TEST(test_setSize, setSize_extension) {
+    size_t rows = 3;
+    size_t cols = 3;
+
+    MatrixLib::Matrix mat(rows, cols);
+
+    for (size_t i = 0; i < rows; ++i) {
+        for (size_t j = 0; j < cols; ++j) {
+            mat.setElement(i, j, i * cols + j + 1);
+        }
+    }
+
+    std::cout << mat << std::endl;
+    size_t new_rows = 4;
+    size_t new_cols = 4;
+
+    mat.setSize(new_rows, new_cols);
+
+    std::cout << mat << std::endl;
+
+    for (size_t i = 0; i < new_rows; ++i) {
+        for (size_t j = 0; j < new_cols; ++j) {
+            if (i < rows && j < cols) {
+                EXPECT_EQ(mat.getElement(i, j), i * cols + j + 1)
+                    << "Error: element is not equal after changing the size";
+            } else {
+                EXPECT_EQ(mat.getElement(i, j), 0)
+                    << "Error: element is not zero after changing the size";
+            }
+        }
     }
 }
 

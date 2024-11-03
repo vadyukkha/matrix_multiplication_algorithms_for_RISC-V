@@ -61,11 +61,10 @@ void Matrix::setSize(const size_t rows, const size_t cols) {
         throw std::runtime_error("Allocation failed");
     }
 
-    for (size_t i = 0; i < rows && i < rows_; ++i) {
-        for (size_t j = 0; j < cols && j < cols_; ++j) {
-            data_[i * cols + j] = old_data[i * cols_ + j];
-        }
+    for (size_t i = 0; i < std::min(rows, rows_); ++i) {
+        std::copy_n(old_data + i * cols_, std::min(cols, cols_), data_ + i * cols);
     }
+
     rows_ = rows;
     cols_ = cols;
     delete[] old_data;
