@@ -24,7 +24,7 @@ TEST_P(test_set_and_get, set_and_get) {
                 EXPECT_EQ(mat1.getElement(i, j), 2) << "Error: element is not equal to 2";
             }
         }
-    } catch (MatrixLib::InvalidSize& e) {
+    } catch (MatrixLib::InvalidMatrixSize& e) {
         EXPECT_STREQ(e.what(), "Size must be positive");
     } catch (MatrixLib::AllocationError& e) {
         EXPECT_STREQ(e.what(), "Allocation failed");

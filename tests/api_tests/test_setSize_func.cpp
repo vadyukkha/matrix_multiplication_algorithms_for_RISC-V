@@ -34,7 +34,7 @@ TEST_P(test_setSize, setSize1) {
                 break;
             }
         }
-    } catch (MatrixLib::InvalidSize& e) {
+    } catch (MatrixLib::InvalidMatrixSize& e) {
         // EXPECT_STREQ(e.what(), "Size must be positive");
         EXPECT_TRUE(strcmp(e.what(), "Size must be positive") == 0 ||
                     strcmp(e.what(), "Rows and cols must be positive") == 0);

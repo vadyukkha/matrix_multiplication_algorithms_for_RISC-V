@@ -22,7 +22,7 @@ TEST_P(test_copy_and_equal, copy_and_equal) {
         MatrixLib::Matrix mat2 = mat1.copy();
 
         EXPECT_EQ(mat1.isEqual(mat2), true);
-    } catch (MatrixLib::InvalidSize& e) {
+    } catch (MatrixLib::InvalidMatrixSize& e) {
         EXPECT_STREQ(e.what(), "Size must be positive");
     } catch (MatrixLib::AllocationError& e) {
         EXPECT_STREQ(e.what(), "Allocation failed");

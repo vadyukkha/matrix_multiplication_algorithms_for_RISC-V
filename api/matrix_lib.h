@@ -84,9 +84,9 @@ class MatrixException : public std::exception {
     const char* message_;
 };
 
-class InvalidSize : public MatrixException {
+class InvalidMatrixSize : public MatrixException {
    public:
-    explicit InvalidSize(const char* message) : MatrixException(message) {}
+    explicit InvalidMatrixSize(const char* message) : MatrixException(message) {}
 };
 
 class IncompatibleMatrixSizes : public MatrixException {
