@@ -6,19 +6,21 @@
 class test_set_and_get : public ::testing::TestWithParam<matrix_size_t> {};
 
 TEST_P(test_set_and_get, set_and_get) {
-    auto [rows, cols] = GetParam();
+    matrix_size_t size = GetParam();
+    size_t rows = size.first;
+    size_t cols = size.second;
 
     try {
         MatrixLib::Matrix mat1(rows, cols);
 
-        for (int i = 0; i < mat1.getRowsSize(); i++) {
-            for (int j = 0; j < mat1.getColsSize(); j++) {
+        for (size_t i = 0; i < mat1.getRowsSize(); i++) {
+            for (size_t j = 0; j < mat1.getColsSize(); j++) {
                 mat1.setElement(i, j, 2);
             }
         }
 
-        for (int i = 0; i < mat1.getRowsSize(); i++) {
-            for (int j = 0; j < mat1.getColsSize(); j++) {
+        for (size_t i = 0; i < mat1.getRowsSize(); i++) {
+            for (size_t j = 0; j < mat1.getColsSize(); j++) {
                 EXPECT_EQ(mat1.getElement(i, j), 2) << "Error: element is not equal to 2";
             }
         }

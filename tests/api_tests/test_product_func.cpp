@@ -6,14 +6,14 @@ TEST(product, test_product_func) {
     MatrixLib::Matrix mat1(2, 2);
     MatrixLib::Matrix mat2(2, 2);
 
-    for (int i = 0; i < mat1.getRowsSize(); i++) {
-        for (int j = 0; j < mat1.getColsSize(); j++) {
+    for (size_t i = 0; i < mat1.getRowsSize(); i++) {
+        for (size_t j = 0; j < mat1.getColsSize(); j++) {
             mat1.setElement(i, j, i + j + 1);
         }
     }
 
-    for (int i = 0; i < mat2.getRowsSize(); i++) {
-        for (int j = 0; j < mat2.getColsSize(); j++) {
+    for (size_t i = 0; i < mat2.getRowsSize(); i++) {
+        for (size_t j = 0; j < mat2.getColsSize(); j++) {
             mat2.setElement(i, j, i + j + 5);
         }
     }

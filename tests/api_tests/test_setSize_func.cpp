@@ -6,21 +6,23 @@
 class test_setSize : public ::testing::TestWithParam<matrix_size_t> {};
 
 TEST_P(test_setSize, setSize) {
-    auto [rows, cols] = GetParam();
+    matrix_size_t size = GetParam();
+    size_t rows = size.first;
+    size_t cols = size.second;
 
     try {
         MatrixLib::Matrix mat(rows, cols);
 
-        mat.setSize(rows - 1, cols - 1);
+        mat.setSize(rows * 2, cols * 2);
 
-        EXPECT_EQ(mat.getRowsSize(), rows - 1)
+        EXPECT_EQ(mat.getRowsSize(), rows * 2)
             << "Error: number of rows does not match after changing the size";
-        EXPECT_EQ(mat.getColsSize(), cols - 1)
+        EXPECT_EQ(mat.getColsSize(), cols * 2)
             << "Error: number of columns does not match after changing the size";
 
         bool alloc_with_zeros = true;
-        for (int64_t i = 0; i < rows - 1; ++i) {
-            for (int64_t j = 0; j < cols - 1; ++j) {
+        for (size_t i = 0; i < rows * 2; ++i) {
+            for (size_t j = 0; j < cols * 2; ++j) {
                 EXPECT_EQ(mat.getElement(i, j), 0)
                     << "Error: element is not zero after changing the size";
                 if (mat.getElement(i, j) != 0) {

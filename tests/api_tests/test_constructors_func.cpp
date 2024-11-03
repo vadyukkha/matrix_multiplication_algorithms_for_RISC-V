@@ -6,7 +6,10 @@
 class test_constructors : public ::testing::TestWithParam<matrix_size_t> {};
 
 TEST_P(test_constructors, default_constructor) {
-    auto [rows, cols] = GetParam();
+    matrix_size_t size = GetParam();
+    size_t rows = size.first;
+    size_t cols = size.second;
+
     MatrixLib::Matrix mat;
     EXPECT_EQ(mat.getRowsSize(), 0)
         << "Error: number of rows in the default constructor is not equal to 0";
@@ -15,7 +18,9 @@ TEST_P(test_constructors, default_constructor) {
 }
 
 TEST_P(test_constructors, main_constructor) {
-    auto [rows, cols] = GetParam();
+    matrix_size_t size = GetParam();
+    size_t rows = size.first;
+    size_t cols = size.second;
 
     try {
         MatrixLib::Matrix A(rows, cols);
@@ -23,8 +28,8 @@ TEST_P(test_constructors, main_constructor) {
         EXPECT_EQ(A.getColsSize(), cols) << "Error: number of columns does not match";
 
         bool alloc_with_zeros = true;
-        for (int64_t i = 0; i < rows; ++i) {
-            for (int64_t j = 0; j < cols; ++j) {
+        for (size_t i = 0; i < rows; ++i) {
+            for (size_t j = 0; j < cols; ++j) {
                 EXPECT_EQ(A.getElement(i, j), 0) << "Error: element is not zero";
                 if (A.getElement(i, j) != 0) {
                     alloc_with_zeros = false;
@@ -43,7 +48,9 @@ TEST_P(test_constructors, main_constructor) {
 }
 
 TEST_P(test_constructors, copy_constructor) {
-    auto [rows, cols] = GetParam();
+    matrix_size_t size = GetParam();
+    size_t rows = size.first;
+    size_t cols = size.second;
 
     try {
         MatrixLib::Matrix A(rows, cols);
@@ -61,7 +68,9 @@ TEST_P(test_constructors, copy_constructor) {
 }
 
 TEST_P(test_constructors, move_constructor) {
-    auto [rows, cols] = GetParam();
+    matrix_size_t size = GetParam();
+    size_t rows = size.first;
+    size_t cols = size.second;
 
     try {
         MatrixLib::Matrix A(rows, cols);
