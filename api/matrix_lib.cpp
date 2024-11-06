@@ -12,7 +12,7 @@ namespace MatrixLib {
 
 Matrix::Matrix(const size_t rows, const size_t cols) {
     if (rows == 0 || cols == 0) {
-        throw MatrixLib::InvalidSize("Size must be positive");
+        throw MatrixLib::InvalidMatrixSize("Size must be positive");
     }
     rows_ = rows;
     cols_ = cols;
@@ -51,7 +51,7 @@ size_t Matrix::getColsSize() const noexcept { return cols_; }
 
 void Matrix::setSize(const size_t rows, const size_t cols) {
     if (rows == 0 || cols == 0) {
-        throw MatrixLib::InvalidSize("Rows and cols must be positive");
+        throw MatrixLib::InvalidMatrixSize("Rows and cols must be positive");
     }
     int* old_data = data_;
 
@@ -72,14 +72,14 @@ void Matrix::setSize(const size_t rows, const size_t cols) {
 
 void Matrix::setElement(size_t row, size_t col, int value) {
     if (row >= rows_ || col >= cols_) {
-        throw MatrixLib::IndexOutOfRange("Index out of range");
+        throw MatrixLib::IndexOutOfRangeMatrix("Index out of range");
     }
     data_[row * cols_ + col] = value;
 }
 
 int Matrix::getElement(size_t row, size_t col) const {
     if (row >= rows_ || col >= cols_) {
-        throw MatrixLib::IndexOutOfRange("Index out of range");
+        throw MatrixLib::IndexOutOfRangeMatrix("Index out of range");
     }
     return data_[row * cols_ + col];
 }
@@ -167,7 +167,7 @@ Matrix Matrix::operator*(const Matrix& other) const { return multiply(other); }
 
 int& Matrix::operator()(size_t row, size_t col) {
     if (row >= rows_ || col >= cols_) {
-        throw MatrixLib::IndexOutOfRange("Index out of range");
+        throw MatrixLib::IndexOutOfRangeMatrix("Index out of range");
     }
     return data_[row * cols_ + col];
 }

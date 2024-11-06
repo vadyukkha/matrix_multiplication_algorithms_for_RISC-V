@@ -94,9 +94,9 @@ class IncompatibleMatrixSizes : public MatrixException {
     explicit IncompatibleMatrixSizes(const char* message) : MatrixException(message) {}
 };
 
-class IndexOutOfRange : public MatrixException {
+class IndexOutOfRangeMatrix : public MatrixException {
    public:
-    explicit IndexOutOfRange(const char* message) : MatrixException(message) {}
+    explicit IndexOutOfRangeMatrix(const char* message) : MatrixException(message) {}
 };
 
 class AllocationError : public MatrixException {
