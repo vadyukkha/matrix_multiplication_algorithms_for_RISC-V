@@ -30,9 +30,3 @@ if(BUILD_TESTS)
   enable_testing()
   add_subdirectory(tests)
 endif()
-
-# flag to enable/disable benchmark compilation
-option(BUILD_BENCHMARK "Build benchmark files" ON)
-if (BUILD_BENCHMARK) 
-  add_subdirectory(benchmarking)
-endif()
