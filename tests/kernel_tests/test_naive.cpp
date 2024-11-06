@@ -32,7 +32,7 @@ TEST(matmul_naive_test, little_matrix) {
     int* a = (int*)malloc(n * n * sizeof(int));
     int* b = (int*)malloc(n * n * sizeof(int));
     int* c = (int*)calloc(n * n, sizeof(int));
-    for (int i = 1; i <= n*n; i++){
+    for (int i = 1; i <= n * n; i++) {
         a[i - 1] = i * 2;
         b[i - 1] = i;
     }
@@ -54,12 +54,12 @@ TEST(matmul_naive_test, little_matrix) {
 
 TEST(matmul_naive_test, square) {
     int n = 3;
-    int* a = (int*)malloc(n*n*sizeof(int));
-    int* b = (int*)malloc(n*n*sizeof(int));
-    int* c = (int*)calloc(n*n, sizeof(int));
-    for (int i = 1; i <= n*n; i++){
-        a[i-1] = (i+2)*2+5;
-        b[i-1] = i+5;
+    int* a = (int*)malloc(n * n * sizeof(int));
+    int* b = (int*)malloc(n * n * sizeof(int));
+    int* c = (int*)calloc(n * n, sizeof(int));
+    for (int i = 1; i <= n * n; i++) {
+        a[i - 1] = (i + 2) * 2 + 5;
+        b[i - 1] = i + 5;
     }
     matmul_naive(a, b, c, n, n, n);
     int* correct_answer = (int*)calloc(n * n, sizeof(int));
@@ -85,12 +85,12 @@ TEST(matmul_naive_test, square) {
 TEST(matmul_naive_test, non_square) {
     int n = 2;
     int m = 1;
-    int* a = (int*)malloc(n*m*sizeof(int));
-    int* b = (int*)malloc(m*n*sizeof(int));
-    int* c = (int*)calloc(m*n, sizeof(int));
-    for (int i = 1; i <= n*m; i++){
-        a[i - 1] = i+3;
-        b[i - 1] = i+2;
+    int* a = (int*)malloc(n * m * sizeof(int));
+    int* b = (int*)malloc(m * n * sizeof(int));
+    int* c = (int*)calloc(m * n, sizeof(int));
+    for (int i = 1; i <= n * m; i++) {
+        a[i - 1] = i + 3;
+        b[i - 1] = i + 2;
     }
     matmul_naive(a, b, c, n, m, n);
     int* correct_answer = (int*)calloc(n * n, sizeof(int));
@@ -111,10 +111,10 @@ TEST(matmul_naive_test, non_square) {
 TEST(matmul_naive_test, negative_and_non_square) {
     int n = 2;
     int m = 3;
-    int* a = (int*)malloc(n*m*sizeof(int));
-    int* b = (int*)malloc(m*n*sizeof(int));
-    int* c = (int*)calloc(m*n, sizeof(int));
-    for (int i = 1; i <= n*m; i++){
+    int* a = (int*)malloc(n * m * sizeof(int));
+    int* b = (int*)malloc(m * n * sizeof(int));
+    int* c = (int*)calloc(m * n, sizeof(int));
+    for (int i = 1; i <= n * m; i++) {
         a[i - 1] = -1 * i - 4;
         b[i - 1] = -1 * i;
     }
