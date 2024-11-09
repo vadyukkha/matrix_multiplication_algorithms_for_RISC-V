@@ -1,8 +1,7 @@
 #include "benchmarking.h"
 
-#include <limits.h>
 #include <math.h>
-#include <stdlib.h>
+#include <time.h>
 
 int compare(const void *a, const void *b) { return (*(double *)a - *(double *)b); }
 
