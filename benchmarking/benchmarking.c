@@ -9,7 +9,7 @@ int compare(const void *a, const void *b) { return (*(double *)a - *(double *)b)
 void fill_matrix_with_randint(int *matrix, size_t row, size_t col) {
     for (size_t i = 0; i < row; i++) {
         for (size_t j = 0; j < col; j++) {
-            matrix[i * col + j] = rand() % (int)sqrt(INT_MAX);
+            matrix[i * col + j] = rand() % 32768;
         }
     }
 }
