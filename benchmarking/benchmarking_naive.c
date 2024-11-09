@@ -11,6 +11,6 @@ int main() {
     int tests_count = 10;
     double res =
         benchmarking(matmul_naive, tests_count, mat_size, mat_size, mat_size) / CLOCKS_PER_SEC;
-    printf("%f\n", res);
+    printf("%f seconds\n", res);
     return 0;
 }
