@@ -24,6 +24,9 @@ TEST_P(matmul_transpose_test, equal_matrix) {
     int *mat_naive = (int *)calloc(row_a * col_b, sizeof(int));
     int *mat_transpose = (int *)calloc(row_a * col_b, sizeof(int));
 
+    fill_matrix_with_randint(a, row_a, col_a);
+    fill_matrix_with_randint(b, col_a, col_b);
+
     matmul_naive(a, b, mat_naive, row_a, col_a, col_b);
     matmul_transpose(a, b, mat_transpose, row_a, col_a, col_b);
 
@@ -33,7 +36,12 @@ TEST_P(matmul_transpose_test, equal_matrix) {
                 << "Error: element is not equal";
         }
     }
+
+    free(a);
+    free(b);
+    free(mat_naive);
+    free(mat_transpose);
 }
 
 INSTANTIATE_TEST_SUITE_P(, matmul_transpose_test,
-                         ::testing::ValuesIn(generate_tests_parametrs(10)));
+                         ::testing::ValuesIn(generate_tests_parametrs(100)));
