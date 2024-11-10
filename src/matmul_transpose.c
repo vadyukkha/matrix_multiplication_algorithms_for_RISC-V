@@ -2,6 +2,7 @@
 
 #include "matrix_operation.h"
 
+// Realization of transpose matrix multiplication function
 void matmul_transpose(const int *a, const int *b, int *c, size_t row_a, size_t col_a,
                       size_t col_b) {
     int *b_transpose = (int *)malloc(col_a * col_b * sizeof(int));
