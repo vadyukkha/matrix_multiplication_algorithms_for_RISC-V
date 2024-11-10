@@ -1,6 +1,7 @@
 #ifndef TESTS_KERNEL_TESTS_MATSIZE_GENERATOR
 #define TESTS_KERNEL_TESTS_MATSIZE_GENERATOR
 
+#include <cstdint>
 #include <tuple>
 #include <vector>
 
