@@ -40,9 +40,9 @@ TEST_P(test_constructors, main_constructor) {
                 break;
             }
         }
-    } catch (std::invalid_argument& e) {
+    } catch (MatrixLib::InvalidMatrixSize& e) {
         EXPECT_STREQ(e.what(), "Size must be positive");
-    } catch (std::runtime_error& e) {
+    } catch (MatrixLib::AllocationError& e) {
         EXPECT_STREQ(e.what(), "Allocation failed");
     }
 }
@@ -60,9 +60,9 @@ TEST_P(test_constructors, copy_constructor) {
         EXPECT_EQ(new_A_copy.getColsSize(), cols)
             << "Error: number of columns does not match when copying";
 
-    } catch (std::invalid_argument& e) {
+    } catch (MatrixLib::InvalidMatrixSize& e) {
         EXPECT_STREQ(e.what(), "Size must be positive");
-    } catch (std::runtime_error& e) {
+    } catch (MatrixLib::AllocationError& e) {
         EXPECT_STREQ(e.what(), "Allocation failed");
     }
 }
@@ -81,9 +81,9 @@ TEST_P(test_constructors, move_constructor) {
             << "Error: number of columns does not match when moving";
         EXPECT_EQ(A.getRowsSize(), 0) << "Error: the moved matrix should be empty";
         EXPECT_EQ(A.getColsSize(), 0) << "Error: the moved matrix should be empty";
-    } catch (std::invalid_argument& e) {
+    } catch (MatrixLib::InvalidMatrixSize& e) {
         EXPECT_STREQ(e.what(), "Size must be positive");
-    } catch (std::runtime_error& e) {
+    } catch (MatrixLib::AllocationError& e) {
         EXPECT_STREQ(e.what(), "Allocation failed");
     }
 }
