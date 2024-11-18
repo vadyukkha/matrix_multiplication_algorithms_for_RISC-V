@@ -6,33 +6,22 @@
 
 void matmul_naive(const int *a, const int *b, int *c, size_t row_a, size_t col_a, size_t col_b);
 
-void huge_matrices_benchmarking() {
-    int mat_size = 500;
+void general_benchmarking(double *results) {
     int tests_count = 10;
-    double res = 
-        benchmarking(matmul_naive, tests_count, mat_size, mat_size, mat_size);
-    printf("%f cycles by using naive on the huge matrices\n", res);
-}
-
-void medium_matrices_benchmarking(){
-    int mat_size = 100;
-    int tests_count = 10;
-    double res = 
-        benchmarking(matmul_naive, tests_count, mat_size, mat_size, mat_size);
-    printf("%f cycles by using naive in the medium-sized matrices\n", res);
-}
-
-void small_matrices_benchmarking() {
-    int mat_size = 10;
-    int tests_count = 10;
-    double res = 
-        benchmarking(matmul_naive, tests_count, mat_size, mat_size, mat_size);
-    printf("%f cycles by using naive in the small matrices\n", res);
+    size_t step = 15;
+    for (size_t i = 1; i <= 40; i++) {
+        size_t mat_size = i*step;
+        double res = benchmarking(matmul_naive, tests_count, mat_size, mat_size, mat_size);
+        results[i-1] = res;
+    }
 }
 
 int main() {
-    huge_matrices_benchmarking();
-    medium_matrices_benchmarking();
-    small_matrices_benchmarking();
+    double* results = (double*)malloc(40 * sizeof(double));
+    general_benchmarking(results);
+    for (int i = 0; i < 40; i++) {
+        printf("%f circles of work\n", results[i]);
+    }
+    free(results);
     return 0;
 }
