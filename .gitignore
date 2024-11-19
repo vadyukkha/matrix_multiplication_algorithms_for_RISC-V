@@ -3,3 +3,7 @@ DS_Store.
 .vscode/
 
 build
+
+benchmarking/*.txt
+
+benchmarking/*.png

@@ -4,24 +4,29 @@
 #include "benchmarking.h"
 #include "matrix_operation.h"
 
+#define TEST_COUNT 10
+
 void matmul_naive(const int *a, const int *b, int *c, size_t row_a, size_t col_a, size_t col_b);
 
-void general_benchmarking(double *results) {
-    int tests_count = 10;
-    size_t step = 15;
-    for (size_t i = 1; i <= 40; i++) {
-        size_t mat_size = i*step;
-        double res = benchmarking(matmul_naive, tests_count, mat_size, mat_size, mat_size);
-        results[i-1] = res;
+int main(int argc, char *argv[]) {
+    if (argc < 2) {
+        printf("Using: %s <matrix_size>\n", argv[0]);
+        return 1;
     }
-}
 
-int main() {
-    double* results = (double*)malloc(40 * sizeof(double));
-    general_benchmarking(results);
-    for (int i = 0; i < 40; i++) {
-        printf("%f circles of work\n", results[i]);
+    FILE *file = fopen("matmul_naive.txt", "w");
+
+    size_t step = (size_t)atoi(argv[1]);
+    size_t finish = (size_t)atoi(argv[2]);
+
+    static char buffer[256];
+    for (size_t mat_size = step; mat_size <= finish; mat_size += step) {
+        double res = benchmarking(matmul_naive, TEST_COUNT, mat_size, mat_size, mat_size);
+        sprintf(buffer, "%.7f", res);
+        fprintf(file, "%zu:%s\n", mat_size, buffer);
+        printf("[BENCHMARK C] Running matmul naive with size %zu\n", mat_size);
     }
-    free(results);
+    fclose(file);
+
     return 0;
 }
