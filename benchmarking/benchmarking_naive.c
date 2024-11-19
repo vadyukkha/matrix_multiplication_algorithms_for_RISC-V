@@ -5,6 +5,7 @@
 #include "matrix_operation.h"
 
 #define TEST_COUNT 10
+#define BUFFER_SIZE 256
 
 void matmul_naive(const int *a, const int *b, int *c, size_t row_a, size_t col_a, size_t col_b);
 
@@ -19,7 +20,7 @@ int main(int argc, char *argv[]) {
     size_t step = (size_t)atoi(argv[1]);
     size_t finish = (size_t)atoi(argv[2]);
 
-    static char buffer[256];
+    static char buffer[BUFFER_SIZE];
     for (size_t mat_size = step; mat_size <= finish; mat_size += step) {
         double res = benchmarking(matmul_naive, TEST_COUNT, mat_size, mat_size, mat_size);
         sprintf(buffer, "%.7f", res);
