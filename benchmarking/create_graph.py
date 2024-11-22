@@ -1,6 +1,6 @@
 import os
 import subprocess
-
+import time
 import matplotlib.pyplot as plt
 
 executables = {
@@ -50,20 +50,22 @@ if "__main__" == __name__:
     step = 16
     finish = 512
 
+    time_start = time.time()
     for algo, path in executables.items():
         print(f"[TEST] >> Тестируем {algo}... << [TEST]")
         subprocess.run([path, str(step), str(finish)], check=True)
 
+    print(f"Benchmarking took {time.time() - time_start:.2f} seconds")
     plt.figure(figsize=(10, 6))
 
     for algo, output_file in zip(executables.keys(), all_outputs):
         results = parse_output(output_file)
         matrix_sizes = sorted(results.keys())
         times = [results[size] for size in matrix_sizes]
-        plt.plot(matrix_sizes, times, label=algo, marker="o")
+        plt.plot(matrix_sizes, times, label=algo)
 
     plt.xlabel("Matrix size (N x N)")
-    plt.ylabel("Circles of work")
+    plt.ylabel("Сycles of work")
     plt.title("Matrix multiplication performance")
     plt.legend()
     plt.grid(True)
