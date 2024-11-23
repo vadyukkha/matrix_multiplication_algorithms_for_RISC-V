@@ -1,11 +1,16 @@
 import os
 import subprocess
 import time
+
 import matplotlib.pyplot as plt
 
 executables = {
     "naive": "../build/benchmarking/benchmark",
 }
+
+all_outputs = [
+    "benchmarking_outputs/matmul_naive.txt",
+]
 
 
 def compile_code():
@@ -41,14 +46,9 @@ def parse_output(file_path):
         return results
 
 
-if "__main__" == __name__:
-    all_outputs = [
-        "matmul_naive.txt",
-    ]
-
-    compile_code()
+def save_results_from_benchmarking():
     step = 16
-    finish = 512
+    finish = 515
 
     time_start = time.time()
     for algo, path in executables.items():
@@ -56,6 +56,9 @@ if "__main__" == __name__:
         subprocess.run([path, str(step), str(finish)], check=True)
 
     print(f"Benchmarking took {time.time() - time_start:.2f} seconds")
+
+
+def generate_graph():
     plt.figure(figsize=(10, 6))
 
     for algo, output_file in zip(executables.keys(), all_outputs):
@@ -69,5 +72,13 @@ if "__main__" == __name__:
     plt.title("Matrix multiplication performance")
     plt.legend()
     plt.grid(True)
-    plt.savefig("performance.png")
+    plt.savefig("benchmarking_outputs/performance.png")
     print("График сохранён в performance.png")
+
+
+if "__main__" == __name__:
+    compile_code()
+
+    save_results_from_benchmarking()
+
+    generate_graph()
