@@ -6,6 +6,7 @@
 
 #define TEST_COUNT 10
 #define BUFFER_SIZE 256
+#define FILE_PATH "benchmarking_outputs/matmul_naive.txt"
 
 void matmul_naive(const int *a, const int *b, int *c, size_t row_a, size_t col_a, size_t col_b);
 
@@ -15,7 +16,7 @@ int main(int argc, char *argv[]) {
         return 1;
     }
 
-    FILE *file = fopen("matmul_naive.txt", "w");
+    FILE *file = fopen(FILE_PATH, "w");
 
     size_t step = (size_t)atoi(argv[1]);
     size_t finish = (size_t)atoi(argv[2]);
