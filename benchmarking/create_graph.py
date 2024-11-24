@@ -5,11 +5,13 @@ import time
 import matplotlib.pyplot as plt
 
 executables = {
-    "naive": "../build/benchmarking/benchmark",
+    "naive": "../build/benchmarking/benchmark_naive",
+    "transpose": "../build/benchmarking/benchmark_transpose",
 }
 
 all_outputs = [
     "benchmarking_outputs/matmul_naive.txt",
+    "benchmarking_outputs/matmul_transpose.txt",
 ]
 
 
@@ -65,7 +67,7 @@ def generate_graph():
         results = parse_output(output_file)
         matrix_sizes = sorted(results.keys())
         times = [results[size] for size in matrix_sizes]
-        plt.plot(matrix_sizes, times, label=algo)
+        plt.plot(matrix_sizes, times, label=algo, marker="o")
 
     plt.xlabel("Matrix size (N x N)")
     plt.ylabel("Сycles of work")
