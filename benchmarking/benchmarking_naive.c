@@ -6,7 +6,7 @@
 
 #define TEST_COUNT 10
 #define BUFFER_SIZE 256
-#define FILE_PATH "benchmarking_outputs/matmul_naive.txt"
+#define FILE_PATH "../../benchmarking/benchmarking_outputs/matmul_naive.txt"
 
 void matmul_naive(const int *a, const int *b, int *c, size_t row_a, size_t col_a, size_t col_b);
 
