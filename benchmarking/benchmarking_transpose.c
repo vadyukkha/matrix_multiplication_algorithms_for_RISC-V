@@ -6,9 +6,9 @@
 
 #define TEST_COUNT 10
 #define BUFFER_SIZE 256
-#define FILE_PATH "benchmarking_outputs/matmul_naive.txt"
+#define FILE_PATH "benchmarking_outputs/matmul_transpose.txt"
 
-void matmul_naive(const int *a, const int *b, int *c, size_t row_a, size_t col_a, size_t col_b);
+void matmul_transpose(const int *a, const int *b, int *c, size_t row_a, size_t col_a, size_t col_b);
 
 int main(int argc, char *argv[]) {
     if (argc < 2) {
@@ -23,10 +23,10 @@ int main(int argc, char *argv[]) {
 
     static char buffer[BUFFER_SIZE];
     for (size_t mat_size = step; mat_size <= finish; mat_size += step) {
-        double res = benchmarking(matmul_naive, TEST_COUNT, mat_size, mat_size, mat_size);
+        double res = benchmarking(matmul_transpose, TEST_COUNT, mat_size, mat_size, mat_size);
         sprintf(buffer, "%.7f", res);
         fprintf(file, "%zu:%s\n", mat_size, buffer);
-        printf("[BENCHMARK C] Running matmul naive with size %zu\n", mat_size);
+        printf("[BENCHMARK C] Running matmul transpose with size %zu\n", mat_size);
     }
     fclose(file);
 

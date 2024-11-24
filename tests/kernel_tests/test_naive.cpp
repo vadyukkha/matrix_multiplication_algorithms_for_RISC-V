@@ -25,6 +25,10 @@ TEST(matmul_naive_test, equal_matrix) {
         }
     }
     EXPECT_EQ(all_correct, true);
+    free(a);
+    free(b);
+    free(c);
+    free(correct_answer);
 }
 
 TEST(matmul_naive_test, little_matrix) {
@@ -50,6 +54,10 @@ TEST(matmul_naive_test, little_matrix) {
         }
     }
     EXPECT_EQ(all_correct, true);
+    free(a);
+    free(b);
+    free(c);
+    free(correct_answer);
 }
 
 TEST(matmul_naive_test, square) {
@@ -80,6 +88,10 @@ TEST(matmul_naive_test, square) {
         }
     }
     EXPECT_EQ(all_correct, true);
+    free(a);
+    free(b);
+    free(c);
+    free(correct_answer);
 }
 
 TEST(matmul_naive_test, non_square) {
@@ -106,6 +118,10 @@ TEST(matmul_naive_test, non_square) {
         }
     }
     EXPECT_EQ(all_correct, true);
+    free(a);
+    free(b);
+    free(c);
+    free(correct_answer);
 }
 
 TEST(matmul_naive_test, negative_and_non_square) {
@@ -132,4 +148,8 @@ TEST(matmul_naive_test, negative_and_non_square) {
         }
     }
     EXPECT_EQ(all_correct, true);
+    free(a);
+    free(b);
+    free(c);
+    free(correct_answer);
 }

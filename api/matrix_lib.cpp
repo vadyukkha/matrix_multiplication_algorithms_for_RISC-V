@@ -12,7 +12,7 @@ namespace MatrixLib {
 
 Matrix::Matrix(const size_t rows, const size_t cols) {
     if (rows == 0 || cols == 0) {
-        throw std::invalid_argument("Size must be positive");
+        throw MatrixLib::InvalidMatrixSize("Size must be positive");
     }
     rows_ = rows;
     cols_ = cols;
@@ -20,7 +20,7 @@ Matrix::Matrix(const size_t rows, const size_t cols) {
     try {
         data_ = new int[rows_ * cols_]();
     } catch (std::bad_alloc& e) {
-        throw std::runtime_error("Allocation failed");
+        throw MatrixLib::AllocationError("Allocation failed");
     }
 }
 
@@ -30,7 +30,7 @@ Matrix::Matrix(const Matrix& other) : rows_(other.rows_), cols_(other.cols_) {
     try {
         data_ = new int[rows_ * cols_]();
     } catch (std::bad_alloc& e) {
-        throw std::runtime_error("Allocation failed");
+        throw MatrixLib::AllocationError("Allocation failed");
     }
 
     std::copy(other.data_, other.data_ + rows_ * cols_, data_);
@@ -51,14 +51,14 @@ size_t Matrix::getColsSize() const noexcept { return cols_; }
 
 void Matrix::setSize(const size_t rows, const size_t cols) {
     if (rows == 0 || cols == 0) {
-        throw std::invalid_argument("Rows and cols must be positive");
+        throw MatrixLib::InvalidMatrixSize("Rows and cols must be positive");
     }
     int* old_data = data_;
 
     try {
         data_ = new int[rows * cols]();
     } catch (std::bad_alloc& e) {
-        throw std::runtime_error("Allocation failed");
+        throw MatrixLib::AllocationError("Allocation failed");
     }
 
     for (size_t i = 0; i < std::min(rows, rows_); ++i) {
@@ -72,25 +72,25 @@ void Matrix::setSize(const size_t rows, const size_t cols) {
 
 void Matrix::setElement(size_t row, size_t col, int value) {
     if (row >= rows_ || col >= cols_) {
-        throw std::out_of_range("Index out of range");
+        throw MatrixLib::IndexOutOfRangeMatrix("Index out of range");
     }
     data_[row * cols_ + col] = value;
 }
 
 int Matrix::getElement(size_t row, size_t col) const {
     if (row >= rows_ || col >= cols_) {
-        throw std::out_of_range("Index out of range");
+        throw MatrixLib::IndexOutOfRangeMatrix("Index out of range");
     }
     return data_[row * cols_ + col];
 }
 
 Matrix Matrix::multiply(const Matrix& other) const {
     if (cols_ != other.rows_) {
-        throw std::invalid_argument("Matrix sizes are not compatible");
+        throw MatrixLib::IncompatibleMatrixSizes("Matrix sizes are not compatible");
     }
 
     if (other.data_ == nullptr || data_ == nullptr) {
-        throw std::invalid_argument("No initialized matrix");
+        throw MatrixLib::NoInitializedMatrix("No initialized matrix");
     }
 
     Matrix result(rows_, other.cols_);
@@ -134,7 +134,7 @@ Matrix& Matrix::operator=(const Matrix& other) {
     try {
         data_ = new int[rows_ * cols_]();
     } catch (std::bad_alloc& e) {
-        throw std::runtime_error("Allocation failed");
+        throw MatrixLib::AllocationError("Allocation failed");
     }
 
     std::copy(other.data_, other.data_ + rows_ * cols_, data_);
@@ -167,7 +167,7 @@ Matrix Matrix::operator*(const Matrix& other) const { return multiply(other); }
 
 int& Matrix::operator()(size_t row, size_t col) {
     if (row >= rows_ || col >= cols_) {
-        throw std::out_of_range("Index out of range");
+        throw MatrixLib::IndexOutOfRangeMatrix("Index out of range");
     }
     return data_[row * cols_ + col];
 }
