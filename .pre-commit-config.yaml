@@ -4,5 +4,3 @@ repos:
     hooks:
       - id: clang-format
         files: \.(cpp|c|h|hpp)$
-
-        
