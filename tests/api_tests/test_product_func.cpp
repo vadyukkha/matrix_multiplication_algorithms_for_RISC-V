@@ -24,14 +24,24 @@ TEST(product, test_product_func) {
     EXPECT_EQ(product.getElement(0, 1), 1 * 6 + 2 * 7);
     EXPECT_EQ(product.getElement(1, 0), 2 * 5 + 3 * 6);
     EXPECT_EQ(product.getElement(1, 1), 2 * 6 + 3 * 7);
+}
 
-    MatrixLib::Matrix mat3;
-    MatrixLib::Matrix mat4;
-
+TEST(product, test_product_func_no_init) {
+    MatrixLib::Matrix mat1;
+    MatrixLib::Matrix mat2;
     try {
-        MatrixLib::Matrix Error_matrix = mat3.multiply(mat4);
-        FAIL() << "Exception was not thrown as expected!";
-    } catch (const MatrixLib::NoInitializedMatrix& e) {
+        MatrixLib::Matrix product = mat1.multiply(mat2);
+    } catch (MatrixLib::NoInitializedMatrix &e) {
         EXPECT_STREQ(e.what(), "No initialized matrix");
+    }
+}
+
+TEST(product, test_product_func_incompatible) {
+    MatrixLib::Matrix mat1(3, 3);
+    MatrixLib::Matrix mat2(2, 2);
+    try {
+        MatrixLib::Matrix product = mat1.multiply(mat2);
+    } catch (MatrixLib::IncompatibleMatrixSizes &e) {
+        EXPECT_STREQ(e.what(), "Matrix sizes are not compatible");
     }
 }
