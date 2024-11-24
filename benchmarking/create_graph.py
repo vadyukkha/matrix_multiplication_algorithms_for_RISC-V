@@ -5,8 +5,8 @@ import time
 import matplotlib.pyplot as plt
 
 executables = {
-    "naive": "../build/benchmarking/benchmark_naive",
-    "transpose": "../build/benchmarking/benchmark_transpose",
+    "naive": "benchmarking/benchmark_naive",
+    "transpose": "benchmarking/benchmark_transpose",
 }
 
 all_outputs = [
@@ -18,7 +18,6 @@ all_outputs = [
 def compile_code():
     print("[COMPILATION] >> Компиляция исходных файлов...")
     try:
-        subprocess.run(["cmake", ".."], cwd="../build", check=True)
         subprocess.run(["cmake", "--build", "."], cwd="../build", check=True)
         print("[COMPILATION] >> Компиляция завершена успешно.")
     except subprocess.CalledProcessError as e:
@@ -55,7 +54,8 @@ def save_results_from_benchmarking():
     time_start = time.time()
     for algo, path in executables.items():
         print(f"[TEST] >> Тестируем {algo}... << [TEST]")
-        subprocess.run([path, str(step), str(finish)], check=True)
+        subprocess.run([path, str(step), str(finish)], cwd="../build", check=True)
+        # subprocess.run(["qemu-riscv64", path, str(step), str(finish)], cwd="../build", check=True)
 
     print(f"Benchmarking took {time.time() - time_start:.2f} seconds")
 
