@@ -79,6 +79,9 @@ def generate_graph():
 
 
 if "__main__" == __name__:
+    if not os.path.exists("benchmarking_outputs"):
+        os.mkdir("benchmarking_outputs")
+        
     compile_code()
 
     save_results_from_benchmarking()
