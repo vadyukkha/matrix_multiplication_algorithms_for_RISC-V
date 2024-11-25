@@ -13,8 +13,8 @@
 void matmul_naive(const int *a, const int *b, int *c, size_t row_a, size_t col_a, size_t col_b);
 
 int main(int argc, char *argv[]) {
-    if (argc < 2) {
-        printf("Using: %s <matrix_size>\n", argv[0]);
+    if (argc < 3) {
+        printf("Using: %s <step> %s <finish>\n", argv[0], argv[1]);
         return 1;
     }
 
