@@ -1,8 +1,19 @@
 import os
 import subprocess
 import time
+import argparse
 
 import matplotlib.pyplot as plt
+
+parser = argparse.ArgumentParser(description="Benchmarking runner")
+
+parser.add_argument('step', type=int, default=16, help="The step of iteration")
+parser.add_argument('finish', type=int, default=512, help="The last number of size of matrix")
+
+parser.add_argument('--arch', choices=['x86', 'riscv64'], default='riscv64', help="Architecture to perform (default: riscv64)")
+parser.add_argument('--verbose', action='store_true', help="Enable verbose mode")
+
+args = parser.parse_args()
 
 executables = {
     "naive": "benchmarking/benchmark_naive",
@@ -48,14 +59,16 @@ def parse_output(file_path):
 
 
 def save_results_from_benchmarking():
-    step = 16
-    finish = 515
+    step = args.step
+    finish = args.finish
 
     time_start = time.time()
     for algo, path in executables.items():
         print(f"[TEST] >> Тестируем {algo}... << [TEST]")
-        subprocess.run([path, str(step), str(finish)], cwd="../build", check=True)
-        # subprocess.run(["qemu-riscv64", path, str(step), str(finish)], cwd="../build", check=True)
+        if args.arch == 'x86':
+            subprocess.run([path, str(step), str(finish)], cwd="../build", check=True)
+        elif args.arch == 'riscv64':
+            subprocess.run(["qemu-riscv64", path, str(step), str(finish)], cwd="../build", check=True)
 
     print(f"Benchmarking took {time.time() - time_start:.2f} seconds")
 
