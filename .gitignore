@@ -9,3 +9,5 @@ build
 benchmarking/benchmarking_outputs
 
 .env
+
+.venv/
