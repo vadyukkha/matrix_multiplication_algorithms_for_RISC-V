@@ -24,12 +24,14 @@ executables = {
     "naive": "benchmarking/benchmark_naive",
     "transpose": "benchmarking/benchmark_transpose",
     "vectorization": "benchmarking/benchmark_vectorization",
+    "vectorize_x86": "benchmarking/benchmark_vectorize_x86",
 }
 
 all_outputs = [
     "benchmarking_outputs/matmul_naive.txt",
     "benchmarking_outputs/matmul_transpose.txt",
     "benchmarking_outputs/matmul_vectorization.txt",
+    "benchmarking_outputs/matmul_vectorize_x86.txt",
 ]
 
 
@@ -49,7 +51,7 @@ def compile_code():
 def parse_output(file_path):
     if not os.path.exists(file_path):
         print(f"Файл {file_path} не найден!")
-        exit(1)
+        return None
 
     results = {}
     with open(file_path, "r") as file:
@@ -85,9 +87,10 @@ def generate_graph():
 
     for algo, output_file in zip(executables.keys(), all_outputs):
         results = parse_output(output_file)
-        matrix_sizes = sorted(results.keys())
-        times = [results[size] for size in matrix_sizes]
-        plt.plot(matrix_sizes, times, label=algo, marker="o")
+        if results is not None:
+            matrix_sizes = sorted(results.keys())
+            times = [results[size] for size in matrix_sizes]
+            plt.plot(matrix_sizes, times, label=algo, marker="o")
 
     plt.xlabel("Matrix size (N x N)")
     plt.ylabel("Сycles of work")
