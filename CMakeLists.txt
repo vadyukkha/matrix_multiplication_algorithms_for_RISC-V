@@ -4,7 +4,8 @@ set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 # set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wconversion")
 
-set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -march=rv64gcv -O2")
+# set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -march=rv64gcv -O2")
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -march=native")
 
 # CMP0135 policy should be new
 if(POLICY CMP0135)

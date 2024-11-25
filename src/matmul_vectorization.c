@@ -1,9 +1,11 @@
+#ifdef RISCV
+
 #include <riscv_vector.h>
 #include <stdlib.h>
 
 #include "matrix_operation.h"
 
-// Realization of vectorization matrix multiplication function
+// Realization of vectorization (RISC-V) matrix multiplication function
 void matmul_vectorization(const int *a, const int *b, int *c, size_t row_a, size_t col_a,
                           size_t col_b) {
     int *b_transpose = (int *)malloc(col_a * col_b * sizeof(int));
@@ -16,8 +18,8 @@ void matmul_vectorization(const int *a, const int *b, int *c, size_t row_a, size
     size_t vlmax = __riscv_vsetvlmax_e32m1();
     for (int i = 0; i < row_a; ++i) {
         for (int j = 0; j < col_b; ++j) {
-            int *ptr_a = &a[i * col_a];
-            int *ptr_b = &b_transpose[j * col_a];
+            const int *ptr_a = &a[i * col_a];
+            const int *ptr_b = &b_transpose[j * col_a];
             int k = col_a;
             vint32m1_t vec_s = __riscv_vmv_v_x_i32m1(0, vlmax);
             vint32m1_t vec_zero = __riscv_vmv_v_x_i32m1(0, vlmax);
@@ -39,3 +41,5 @@ void matmul_vectorization(const int *a, const int *b, int *c, size_t row_a, size
 
     free(b_transpose);
 }
+
+#endif
