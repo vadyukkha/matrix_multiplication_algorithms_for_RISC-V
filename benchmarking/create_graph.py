@@ -1,9 +1,12 @@
+import argparse
 import os
 import subprocess
 import time
-import argparse
 
 import matplotlib.pyplot as plt
+from dotenv import load_dotenv
+
+load_dotenv()
 
 parser = argparse.ArgumentParser(description="Benchmarking runner")
 
@@ -15,7 +18,7 @@ parser.add_argument('--verbose', action='store_true', help="Enable verbose mode"
 
 args = parser.parse_args()
 
-rootfs = "path/to/sysroot"
+rootfs = os.getenv("ROOTFS")
 
 executables = {
     "naive": "benchmarking/benchmark_naive",
