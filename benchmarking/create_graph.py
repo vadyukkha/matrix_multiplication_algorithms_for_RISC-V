@@ -1,24 +1,38 @@
 import os
 import subprocess
 import time
+import argparse
 
 import matplotlib.pyplot as plt
 
+parser = argparse.ArgumentParser(description="Benchmarking runner")
+
+parser.add_argument('step', type=int, default=16, help="The step of iteration")
+parser.add_argument('finish', type=int, default=512, help="The last number of size of matrix")
+
+parser.add_argument('--arch', choices=['x86', 'riscv64'], default='riscv64', help="Architecture to perform (default: riscv64)")
+parser.add_argument('--verbose', action='store_true', help="Enable verbose mode")
+
+args = parser.parse_args()
+
+rootfs = "path/to/sysroot"
+
 executables = {
-    "naive": "../build/benchmarking/benchmark_naive",
-    "transpose": "../build/benchmarking/benchmark_transpose",
+    "naive": "benchmarking/benchmark_naive",
+    "transpose": "benchmarking/benchmark_transpose",
+    "vectorization": "benchmarking/benchmark_vectorization",
 }
 
 all_outputs = [
     "benchmarking_outputs/matmul_naive.txt",
     "benchmarking_outputs/matmul_transpose.txt",
+    "benchmarking_outputs/matmul_vectorization.txt",
 ]
 
 
 def compile_code():
     print("[COMPILATION] >> Компиляция исходных файлов...")
     try:
-        subprocess.run(["cmake", ".."], cwd="../build", check=True)
         subprocess.run(["cmake", "--build", "."], cwd="../build", check=True)
         print("[COMPILATION] >> Компиляция завершена успешно.")
     except subprocess.CalledProcessError as e:
@@ -49,13 +63,16 @@ def parse_output(file_path):
 
 
 def save_results_from_benchmarking():
-    step = 16
-    finish = 515
+    step = args.step
+    finish = args.finish
 
     time_start = time.time()
     for algo, path in executables.items():
         print(f"[TEST] >> Тестируем {algo}... << [TEST]")
-        subprocess.run([path, str(step), str(finish)], check=True)
+        if args.arch == 'x86':
+            subprocess.run([path, str(step), str(finish)], cwd="../build", check=True)
+        elif args.arch == 'riscv64':
+            subprocess.run(["qemu-riscv64", "-L", rootfs, path, str(step), str(finish)], cwd="../build", check=True)
 
     print(f"Benchmarking took {time.time() - time_start:.2f} seconds")
 
@@ -87,3 +104,4 @@ if "__main__" == __name__:
     save_results_from_benchmarking()
 
     generate_graph()
+    
