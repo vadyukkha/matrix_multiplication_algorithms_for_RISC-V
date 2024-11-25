@@ -10,6 +10,10 @@ void matmul_naive(const int *a, const int *b, int *c, size_t row_a, size_t col_a
 
 // Declaration of transpose matrix multiplication function
 void matmul_transpose(const int *a, const int *b, int *c, size_t row_a, size_t col_a, size_t col_b);
+
+// Declaration of vectorization matrix multiplication function
+void matmul_vectorization(const int *a, const int *b, int *c, size_t row_a, size_t col_a,
+                          size_t col_b);
 }
 #endif
 
