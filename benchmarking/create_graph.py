@@ -64,6 +64,10 @@ def parse_output(file_path):
             except ValueError:
                 print(f"Ошибка парсинга строки: {line.strip()}")
                 continue
+        try:
+            os.remove(file_path)
+        except OSError:
+            print(f"Ошибка удаления файла {file_path}")
         return results
 
 
