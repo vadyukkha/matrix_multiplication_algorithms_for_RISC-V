@@ -14,7 +14,7 @@
     + Пропишите для `х86`:
 
         ``` bash
-        cmake .. 
+        cmake -DCMAKE_TOOLCHAIN_FILE=../cmake/toolchain-x86.cmake ..
         ```
 
     + Пропишите для `RISC-V`:
