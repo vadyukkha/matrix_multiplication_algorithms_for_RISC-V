@@ -114,4 +114,3 @@ if "__main__" == __name__:
     save_results_from_benchmarking()
 
     generate_graph()
-    
