@@ -11,3 +11,5 @@ benchmarking/benchmarking_outputs
 .env
 
 .venv/
+
+sc-dt/
