@@ -88,6 +88,7 @@ row_loop2:
 column_loop2:
     bge  t1, a5, next_row2              # if j >= col, move to next row
     mv   t2, a4                         # k = col_a
+    vsetvli t3, t2, e32, m1             # VL = min(t2, VLEN)
     vmv.v.i v2, 0                       # v2 = 0 (vector sum)
 
     # calc offset
