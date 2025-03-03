@@ -24,6 +24,7 @@ executables = {
     "naive": "benchmarking/benchmark_naive",
     "transpose": "benchmarking/benchmark_transpose",
     "vectorization": "benchmarking/benchmark_vectorization",
+    "asm": "benchmarking/benchmark_asm",
     "vectorize_x86": "benchmarking/benchmark_vectorize_x86",
 }
 
@@ -31,6 +32,7 @@ all_outputs = [
     "benchmarking_outputs/matmul_naive.txt",
     "benchmarking_outputs/matmul_transpose.txt",
     "benchmarking_outputs/matmul_vectorization.txt",
+    "benchmarking_outputs/matmul_asm.txt",
     "benchmarking_outputs/matmul_vectorize_x86.txt",
 ]
 
