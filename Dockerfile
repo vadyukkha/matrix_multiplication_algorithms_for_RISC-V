@@ -2,7 +2,7 @@
 FROM ubuntu:22.04
 
 # Устанавливаем зависимости и необходимые инструменты
-RUN apt-get update && apt-get upgrade && apt-get install -y \
+RUN apt-get update && apt-get upgrade -y && apt-get install -y \
     libglib2.0-0 libglib2.0-dev \
     build-essential \
     cmake \
