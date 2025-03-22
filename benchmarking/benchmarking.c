@@ -1,7 +1,6 @@
 #include "benchmarking.h"
 
 #include <math.h>
-#include <stdio.h>
 #include <time.h>
 
 int compare(const void *a, const void *b) { return (*(double *)a - *(double *)b); }
