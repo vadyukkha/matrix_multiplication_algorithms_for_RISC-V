@@ -16,23 +16,18 @@ void fill_matrix_with_randint(int *matrix, size_t row, size_t col) {
 
 double benchmarking(void (*matmul_func)(const int *, const int *, int *, size_t, size_t, size_t),
                     int tests_count, size_t row_a, size_t col_a, size_t col_b) {
-    printf("start func benchmarking\n");
     double *results = (double *)malloc(tests_count * sizeof(double));
     int *a = (int *)malloc(row_a * col_a * sizeof(int));
     int *b = (int *)malloc(col_a * col_b * sizeof(int));
     int *c = (int *)calloc(row_a * col_b, sizeof(int));
 
-    printf("start to fill matrix\n");
     fill_matrix_with_randint(a, row_a, col_a);
     fill_matrix_with_randint(b, col_a, col_b);
 
     for (int i = 0; i < tests_count; i++) {
         clock_t start = clock();
-        printf("bench %d start here\n", i);
         matmul_func(a, b, c, row_a, col_a, col_b);
-        printf("bench %d end here\n", i);
         clock_t end = clock();
-        printf("bench %d time: %f\n", i, (double)(end - start));
         results[i] = (double)(end - start);
     }
     qsort(results, tests_count, sizeof(double), compare);

@@ -22,11 +22,11 @@ matmul_vectorization_asm:
     # a5 - col_b - col
 
 # === First step is transpose of matrix B ===
-    addi    sp, sp, -16                  # Allocate stack frame
-    sw      s1, 12(sp)                   # Save s1
-    sw      s2, 8(sp)                   # Save s2
-    sw      s3, 4(sp)                   # Save s3
-    sw      s4, 0(sp)                   # Save s4
+    addi    sp, sp, -32                  # Allocate stack frame
+    sd      s1, 24(sp)                   # Save s1
+    sd      s2, 16(sp)                   # Save s2
+    sd      s3, 8(sp)                   # Save s3
+    sd      s4, 0(sp)                   # Save s4
 
     mul t0, a4, a5                      # Вычисляем количество элементов: rows * cols
     slli t0, t0, 2                      # Умножаем на 4 (размер int)
@@ -140,9 +140,9 @@ next_row2:
     j row_loop2                         # repeat
 done:
     add sp, sp, s4                      # Освобождаем выделенную память
-    lw s4, 0(sp)
-    lw s3, 4(sp)                        # Restore s3
-    lw s2, 8(sp)                        # Restore s2
-    lw s1, 12(sp)                        # Restore s1
-    addi sp, sp, 16                     # Deallocate stack frame
+    ld s4, 0(sp)
+    ld s3, 8(sp)                        # Restore s3
+    ld s2, 16(sp)                        # Restore s2
+    ld s1, 24(sp)                        # Restore s1
+    addi sp, sp, 32                     # Deallocate stack frame
     ret
