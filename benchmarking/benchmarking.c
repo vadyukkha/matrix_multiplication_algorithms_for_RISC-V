@@ -19,6 +19,7 @@ double benchmarking(void (*matmul_func)(const int *, const int *, int *, size_t,
     int *a = (int *)malloc(row_a * col_a * sizeof(int));
     int *b = (int *)malloc(col_a * col_b * sizeof(int));
     int *c = (int *)calloc(row_a * col_b, sizeof(int));
+
     fill_matrix_with_randint(a, row_a, col_a);
     fill_matrix_with_randint(b, col_a, col_b);
 

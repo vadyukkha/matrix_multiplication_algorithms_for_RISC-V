@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.14)
-project(matrix_multiplication_risc_v)
+project(matrix_multiplication_risc_v LANGUAGES C CXX ASM)
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
@@ -9,7 +9,7 @@ if(POLICY CMP0135)
 endif()
 
 # C lib and api lib source files
-file(GLOB SRC_FILES ${PROJECT_SOURCE_DIR}/src/*.c)
+file(GLOB SRC_FILES ${PROJECT_SOURCE_DIR}/src/*)
 file(GLOB API_FILES ${PROJECT_SOURCE_DIR}/api/*.cpp)
 
 # C lib adding
