@@ -1,3 +1,5 @@
+#ifdef RISCV
+
 #include <stdlib.h>
 
 #include "matrix_operation.h"
@@ -14,3 +16,5 @@ void matmul_vectorization_asm(const int *a, const int *b, int *c, size_t row_a, 
 
     free(b_transpose);
 }
+
+#endif

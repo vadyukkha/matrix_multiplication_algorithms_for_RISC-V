@@ -10,6 +10,7 @@
 #     }
 # }
 
+#ifdef RISCV
     .globl matmul
     .type matmul, @function
     .section .text
@@ -196,3 +197,4 @@ done:
     ld s1, 16(sp)                        # Restore s1
     addi sp, sp, 24                     # Deallocate stack frame
     ret
+#endif

@@ -35,3 +35,9 @@ option(BUILD_BENCHMARK "Build benchmark files" ON)
 if (BUILD_BENCHMARK) 
   add_subdirectory(benchmarking)
 endif()
+
+# flag to enable/disable example compilation
+option(BUILD_EXAMPLE "Build example files" ON)
+if (BUILD_EXAMPLE) 
+  add_subdirectory(example)
+endif()
