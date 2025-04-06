@@ -94,7 +94,11 @@ Matrix Matrix::multiply(const Matrix& other) const {
     }
 
     Matrix result(rows_, other.cols_);
-    matmul_naive(this->data_, other.data_, result.data_, rows_, cols_, other.cols_);
+#ifdef RISCV
+    matmul_vectorization_asm(this->data_, other.data_, result.data_, rows_, cols_, other.cols_);
+#else
+    matmul_vectorize_x86(this->data_, other.data_, result.data_, rows_, cols_, other.cols_);
+#endif
     return result;
 }
 
