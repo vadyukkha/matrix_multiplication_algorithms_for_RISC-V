@@ -1,3 +1,5 @@
+#ifndef RISCV
+
 #include <errno.h>
 #include <stdio.h>
 #include <sys/stat.h>
@@ -8,9 +10,10 @@
 
 #define TEST_COUNT 10
 #define BUFFER_SIZE 256
-#define FILE_PATH "../benchmarking/benchmarking_outputs/matmul_naive.txt"
+#define FILE_PATH "../benchmarking/benchmarking_outputs/matmul_vectorize_x86.txt"
 
-void matmul_naive(const int *a, const int *b, int *c, size_t row_a, size_t col_a, size_t col_b);
+void matmul_vectorize_x86(const int *a, const int *b, int *c, size_t row_a, size_t col_a,
+                          size_t col_b);
 
 int main(int argc, char *argv[]) {
     if (argc < 3) {
@@ -25,7 +28,7 @@ int main(int argc, char *argv[]) {
 
     FILE *file = fopen(FILE_PATH, "w");
     if (file == NULL) {
-        printf("Error: file was not opened\n");
+        printf("Error: file was not opened");
         return 1;
     }
 
@@ -34,12 +37,17 @@ int main(int argc, char *argv[]) {
 
     static char buffer[BUFFER_SIZE];
     for (size_t mat_size = step; mat_size <= finish; mat_size += step) {
-        double res = benchmarking(matmul_naive, TEST_COUNT, mat_size, mat_size, mat_size);
+        double res = benchmarking(matmul_vectorize_x86, TEST_COUNT, mat_size, mat_size, mat_size);
         sprintf(buffer, "%.7f", res);
         fprintf(file, "%zu:%s\n", mat_size, buffer);
-        printf("[BENCHMARK C] Running matmul naive with size %zu\n", mat_size);
+        printf("[BENCHMARK C] Running matmul vectorize_x86 with size %zu\n", mat_size);
     }
     fclose(file);
 
     return 0;
 }
+#else
+
+int main() { return 0; }
+
+#endif
