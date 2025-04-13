@@ -9,7 +9,10 @@ if(POLICY CMP0135)
 endif()
 
 # C lib and api lib source files
-file(GLOB SRC_FILES ${PROJECT_SOURCE_DIR}/src/*)
+file(GLOB SRC_FILES ${PROJECT_SOURCE_DIR}/src/*.c)
+if (RISCV)
+  list(APPEND SRC_FILES ${PROJECT_SOURCE_DIR}/src/matmul_rvv.s)
+endif()
 file(GLOB API_FILES ${PROJECT_SOURCE_DIR}/api/*.cpp)
 
 # C lib adding
