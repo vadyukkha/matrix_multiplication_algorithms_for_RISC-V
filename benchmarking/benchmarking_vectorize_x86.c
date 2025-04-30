@@ -25,7 +25,7 @@ int main(int argc, char *argv[]) {
         perror("Error creating dir");
         return 1;
     }
-    if (argc = 3) {
+    if (argc == 3) {
         FILE *file = fopen(FILE_PATH, "w");
         if (file == NULL) {
             printf("Error: file was not opened");
