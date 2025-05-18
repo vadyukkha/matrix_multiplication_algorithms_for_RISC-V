@@ -18,5 +18,5 @@ add_executable(kernel_tests ${KERNEL_TESTS_FILES})
 target_link_libraries(kernel_tests api multiplication_lib GTest::gtest_main)
 
 include(GoogleTest)
-gtest_discover_tests(kernel_tests)
-gtest_discover_tests(api_tests)
+add_test(PROGRAM kernel_tests USING qemu-riscv64)
+add_test(PROGRAM api_tests USING qemu-riscv64)

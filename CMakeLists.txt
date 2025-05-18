@@ -1,8 +1,7 @@
 cmake_minimum_required(VERSION 3.14)
-project(matrix_multiplication_risc_v)
+project(matrix_multiplication_risc_v LANGUAGES C CXX ASM)
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
-# set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wconversion")
 
 # CMP0135 policy should be new
 if(POLICY CMP0135)
@@ -11,6 +10,9 @@ endif()
 
 # C lib and api lib source files
 file(GLOB SRC_FILES ${PROJECT_SOURCE_DIR}/src/*.c)
+if (RISCV)
+  list(APPEND SRC_FILES ${PROJECT_SOURCE_DIR}/src/matmul_rvv.s)
+endif()
 file(GLOB API_FILES ${PROJECT_SOURCE_DIR}/api/*.cpp)
 
 # C lib adding
@@ -35,4 +37,10 @@ endif()
 option(BUILD_BENCHMARK "Build benchmark files" ON)
 if (BUILD_BENCHMARK) 
   add_subdirectory(benchmarking)
+endif()
+
+# flag to enable/disable example compilation
+option(BUILD_EXAMPLE "Build example files" ON)
+if (BUILD_EXAMPLE) 
+  add_subdirectory(example)
 endif()

@@ -3,7 +3,7 @@
 #include "matrix_operation.h"
 #include "matsize_generator.h"
 
-class matmul_transpose_test : public ::testing::TestWithParam<matrix_size_t> {};
+class matmul_block_transpose_test : public ::testing::TestWithParam<matrix_size_t> {};
 
 static void fill_matrix_with_randint(int *matrix, size_t row, size_t col) {
     for (size_t i = 0; i < row; i++) {
@@ -13,7 +13,7 @@ static void fill_matrix_with_randint(int *matrix, size_t row, size_t col) {
     }
 }
 
-TEST_P(matmul_transpose_test, equal_matrix) {
+TEST_P(matmul_block_transpose_test, equal_matrix) {
     auto params = GetParam();
     size_t row_a = std::get<0>(params);
     size_t col_a = std::get<1>(params);
@@ -28,7 +28,7 @@ TEST_P(matmul_transpose_test, equal_matrix) {
     fill_matrix_with_randint(b, col_a, col_b);
 
     matmul_naive(a, b, mat_naive, row_a, col_a, col_b);
-    matmul_transpose(a, b, mat_transpose, row_a, col_a, col_b);
+    matmul_block_transpose(a, b, mat_transpose, row_a, col_a, col_b);
 
     for (size_t i = 0; i < row_a; i++) {
         for (size_t j = 0; j < col_b; j++) {
@@ -43,5 +43,5 @@ TEST_P(matmul_transpose_test, equal_matrix) {
     free(mat_transpose);
 }
 
-INSTANTIATE_TEST_SUITE_P(, matmul_transpose_test,
+INSTANTIATE_TEST_SUITE_P(, matmul_block_transpose_test,
                          ::testing::ValuesIn(generate_tests_parametrs(100)));
