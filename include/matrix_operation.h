@@ -11,6 +11,10 @@ void matmul_naive(const int *a, const int *b, int *c, size_t row_a, size_t col_a
 // Declaration of transpose matrix multiplication function
 void matmul_transpose(const int *a, const int *b, int *c, size_t row_a, size_t col_a, size_t col_b);
 
+// Declaration of block transpose matrix multiplication function
+void matmul_block_transpose(const int *a, const int *b, int *c, size_t row_a, size_t col_a,
+                            size_t col_b);
+
 #ifdef RISCV
 // Declaration of vectorization (RISC-V) matrix multiplication function
 void matmul_vectorization(const int *a, const int *b, int *c, size_t row_a, size_t col_a,

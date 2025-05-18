@@ -15,27 +15,27 @@ parser.add_argument('finish', type=int, default=512, help="The last number of si
 
 parser.add_argument('--arch', choices=['x86', 'riscv64'], default='riscv64', help="Architecture to perform (default: riscv64)")
 parser.add_argument('--verbose', action='store_true', help="Enable verbose mode")
+parser.add_argument('--m', choices = ['sec', 'cycles'], default='cycles', help="Enable new unit of measurement(default: cycles)")
 
 args = parser.parse_args()
 
 rootfs = os.getenv("ROOTFS")
 
-executables = {
+all_executables = {
     "naive": "benchmarking/benchmark_naive",
     "transpose": "benchmarking/benchmark_transpose",
+    "block_transpose": "benchmarking/benchmark_block_transpose",
     "vectorization": "benchmarking/benchmark_vectorization",
     "asm": "benchmarking/benchmark_asm",
     "vectorize_x86": "benchmarking/benchmark_vectorize_x86",
 }
 
-all_outputs = [
-    "benchmarking_outputs/matmul_naive.txt",
-    "benchmarking_outputs/matmul_transpose.txt",
-    "benchmarking_outputs/matmul_vectorization.txt",
-    "benchmarking_outputs/matmul_asm.txt",
-    "benchmarking_outputs/matmul_vectorize_x86.txt",
-]
+if args.m == "sec":
+    executables = {key:value for key, value in all_executables.items() if key not in ["vectorize_x86", "vectorization", "asm"]}
+else:
+    executables = {key:value for key, value in all_executables.items() if key != "block_transpose"}
 
+all_outputs = [f"benchmarking_outputs/matmul_{algo}.txt" for algo in executables.keys()]
 
 def compile_code():
     print("[COMPILATION] >> Компиляция исходных файлов...")
@@ -81,9 +81,15 @@ def save_results_from_benchmarking():
     for algo, path in executables.items():
         print(f"[TEST] >> Тестируем {algo}... << [TEST]")
         if args.arch == 'x86':
-            subprocess.run([path, str(step), str(finish)], cwd="../build", check=True)
+            if args.m == 'sec':
+                subprocess.run([path, str(step), str(finish), str(args.m)], cwd="../build", check=True)
+            else:
+               subprocess.run([path, str(step), str(finish)], cwd="../build", check=True) 
         elif args.arch == 'riscv64':
-            subprocess.run(["qemu-riscv64", "-L", rootfs, path, str(step), str(finish)], cwd="../build", check=True)
+            if args.m == 'sec':
+                subprocess.run(["qemu-riscv64", "-L", rootfs, path, str(step), str(finish), str(args.m)], cwd="../build", check=True)
+            else:
+                subprocess.run(["qemu-riscv64", "-L", rootfs, path, str(step), str(finish)], cwd="../build", check=True)
 
     print(f"Benchmarking took {time.time() - time_start:.2f} seconds")
 
@@ -99,7 +105,10 @@ def generate_graph():
             plt.plot(matrix_sizes, times, label=algo, marker="o")
 
     plt.xlabel("Matrix size (N x N)")
-    plt.ylabel("Сycles of work")
+    if args.m == "cycles":
+        plt.ylabel("Сycles of work")
+    else:
+        plt.ylabel("Seconds of work")
     plt.title("Matrix multiplication performance")
     plt.legend()
     plt.grid(True)

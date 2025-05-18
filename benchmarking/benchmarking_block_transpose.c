@@ -1,19 +1,18 @@
-#ifdef RISCV
-
 #include <errno.h>
 #include <stdio.h>
+#include <string.h>
 #include <sys/stat.h>
 #include <time.h>
 
-#include "benchmarking.h"
+#include "benchmarking_sec.h"
 #include "matrix_operation.h"
 
 #define TEST_COUNT 10
 #define BUFFER_SIZE 256
-#define FILE_PATH "../benchmarking/benchmarking_outputs/matmul_vectorization.txt"
+#define FILE_PATH "../benchmarking/benchmarking_outputs/matmul_block_transpose.txt"
 
-void matmul_vectorization(const int *a, const int *b, int *c, size_t row_a, size_t col_a,
-                          size_t col_b);
+void matmul_block_transpose(const int *a, const int *b, int *c, size_t row_a, size_t col_a,
+                            size_t col_b);
 
 int main(int argc, char *argv[]) {
     if (argc < 3) {
@@ -25,7 +24,7 @@ int main(int argc, char *argv[]) {
         perror("Error creating dir");
         return 1;
     }
-    if (argc == 3) {
+    if (argc == 4 && strcmp(argv[3], "sec") == 0) {
         FILE *file = fopen(FILE_PATH, "w");
         if (file == NULL) {
             printf("Error: file was not opened");
@@ -36,9 +35,9 @@ int main(int argc, char *argv[]) {
         size_t finish = (size_t)atoi(argv[2]);
         static char buffer[BUFFER_SIZE];
         for (size_t mat_size = step; mat_size <= finish; mat_size += step) {
-            printf("[BENCHMARK C] Running matmul vectorization with size %zu\n", mat_size);
+            printf("[BENCHMARK C] Running matmul block transpose with size %zu\n", mat_size);
             double res =
-                benchmarking(matmul_vectorization, TEST_COUNT, mat_size, mat_size, mat_size);
+                benchmarking_sec(matmul_block_transpose, TEST_COUNT, mat_size, mat_size, mat_size);
             sprintf(buffer, "%.7f", res);
             fprintf(file, "%zu:%s\n", mat_size, buffer);
         }
@@ -46,8 +45,3 @@ int main(int argc, char *argv[]) {
     }
     return 0;
 }
-#else
-
-int main() { return 0; }
-
-#endif

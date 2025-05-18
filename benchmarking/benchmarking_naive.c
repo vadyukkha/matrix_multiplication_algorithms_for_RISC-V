@@ -1,9 +1,11 @@
 #include <errno.h>
 #include <stdio.h>
+#include <string.h>
 #include <sys/stat.h>
 #include <time.h>
 
 #include "benchmarking.h"
+#include "benchmarking_sec.h"
 #include "matrix_operation.h"
 
 #define TEST_COUNT 10
@@ -31,15 +33,22 @@ int main(int argc, char *argv[]) {
 
     size_t step = (size_t)atoi(argv[1]);
     size_t finish = (size_t)atoi(argv[2]);
-
+    int use_sec = 0;
+    if (argc >= 4 && strcmp(argv[3], "sec") == 0) {
+        use_sec = 1;
+    }
     static char buffer[BUFFER_SIZE];
     for (size_t mat_size = step; mat_size <= finish; mat_size += step) {
-        double res = benchmarking(matmul_naive, TEST_COUNT, mat_size, mat_size, mat_size);
+        double res;
+        printf("[BENCHMARK C] Running matmul naive with size %zu\n", mat_size);
+        if (use_sec) {
+            res = benchmarking_sec(matmul_naive, TEST_COUNT, mat_size, mat_size, mat_size);
+        } else {
+            res = benchmarking(matmul_naive, TEST_COUNT, mat_size, mat_size, mat_size);
+        }
         sprintf(buffer, "%.7f", res);
         fprintf(file, "%zu:%s\n", mat_size, buffer);
-        printf("[BENCHMARK C] Running matmul naive with size %zu\n", mat_size);
     }
     fclose(file);
-
     return 0;
 }
